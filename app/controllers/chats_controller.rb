@@ -17,11 +17,19 @@ class ChatsController < ApplicationController
 
   # GET /chat/something/log or /chat/something/log.json
   def log
-    @calendar, @pagy, @messages = pagy_calendar(@chat.messages, 
-                                                year:  { size:  [1, 1, 1, 1] },
-                                                month: { size:  [1, 1, 1, 1], format: "%b" },
-                                                day:   { size:  [1, 1, 1, 1], format: "%d"},
-                                                pagy:  { size:  [1, 1, 1, 1], items: 100 })
+    params.permit(:date_between, :commit, :id)
+
+    start = @chat.created
+    finish = @chat.last_message
+    puts params
+    if params[:date_between]
+      date_split = params[:date_between].split(" - ")
+      if date_split.size == 2
+        start = date_split[0]
+        finish = date_split[1]
+      end
+    end
+    @pagy, @messages = pagy(@chat.messages.between(start, finish), size:  [1, 3, 3, 1], items: 100 )
     render :layout => 'application_chat'
   end
   

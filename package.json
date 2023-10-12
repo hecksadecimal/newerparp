@@ -12,6 +12,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "latest",
     "daisyui": "^3.8.0",
+    "moment": "^2.29.4",
     "postcss": "latest",
     "tailwindcss": "latest",
     "theme-change": "^2.5.0"

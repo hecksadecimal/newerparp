@@ -11,9 +11,9 @@
 <% else                        -%>  <button class="page prev w-10 btn btn-sm btn-disabled join-item"><%== "&lsaquo;" %></button>
 <% end                         -%>
 <% pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36] -%>
-<%   if    item.is_a?(Integer) -%>  <%== link.call(item, pagy.label_for(item), 'class="page next btn btn-sm w-10"') %>
+<%   if    item.is_a?(Integer) -%>  <%== link.call(item, pagy.label_for(item), 'class="page next btn btn-sm"') %>
 <%   elsif item.is_a?(String)  -%>  <button class="page btn btn-sm btn-primary current join-item grow"><%= pagy.label_for(item) %></button>
-<%   elsif item == :gap        -%>  <button class="page btn btn-sm btn-disabled gap join-item w-10"><%== pagy_t('pagy.nav.gap') %></button>
+<%   elsif item == :gap        -%>  <button class="page btn btn-sm btn-disabled gap join-item"><%== pagy_t('pagy.nav.gap') %></button>
 <%   end                       -%>
 <% end                         -%>
 <% if pagy.next                -%>  <%== link.call(pagy.next, "&rsaquo;", 'aria-label="next" class="page next w-10 btn btn-sm join-item"') %>

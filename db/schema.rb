@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_03_064158) do
     t.string "color", limit: 6, null: false
     t.string "quirk_prefix", limit: 2000, null: false
     t.string "quirk_suffix", limit: 2000, null: false
-    t.enum "case", null: false, enum_type: ""case""
+    t.enum "case", null: false, enum_type: "\"case\""
     t.text "replacements", null: false
     t.text "regexes", null: false
     t.enum "search_style", null: false, enum_type: "user_search_style"
@@ -159,7 +159,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_03_064158) do
     t.string "color", limit: 6, null: false
     t.string "quirk_prefix", limit: 2000, null: false
     t.string "quirk_suffix", limit: 2000, null: false
-    t.enum "case", null: false, enum_type: ""case""
+    t.enum "case", null: false, enum_type: "\"case\""
     t.text "replacements", null: false
     t.text "regexes", null: false
     t.index ["user_id"], name: "characters_user_id"
@@ -177,7 +177,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_03_064158) do
     t.string "color", limit: 6, null: false
     t.string "quirk_prefix", limit: 2000, null: false
     t.string "quirk_suffix", limit: 2000, null: false
-    t.enum "case", null: false, enum_type: ""case""
+    t.enum "case", null: false, enum_type: "\"case\""
     t.text "replacements", null: false
     t.text "regexes", null: false
     t.boolean "confirm_disconnect", null: false
@@ -295,7 +295,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_03_064158) do
     t.string "color", limit: 6, null: false
     t.string "quirk_prefix", limit: 2000, null: false
     t.string "quirk_suffix", limit: 2000, null: false
-    t.enum "case", null: false, enum_type: ""case""
+    t.enum "case", null: false, enum_type: "\"case\""
     t.text "replacements", null: false
     t.text "regexes", null: false
     t.text "text_preview", null: false
@@ -350,7 +350,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_03_064158) do
     t.string "color", limit: 6, null: false
     t.string "quirk_prefix", limit: 2000, null: false
     t.string "quirk_suffix", limit: 2000, null: false
-    t.enum "case", null: false, enum_type: ""case""
+    t.enum "case", null: false, enum_type: "\"case\""
     t.text "replacements", null: false
     t.text "regexes", null: false
     t.enum "search_style", null: false, enum_type: "user_search_style"

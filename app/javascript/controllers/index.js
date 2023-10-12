@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import DatepickerController from "./datepicker_controller"
+application.register("datepicker", DatepickerController)
+
 import ThemeSelectController from "./theme_select_controller"
 application.register("theme-select", ThemeSelectController)
