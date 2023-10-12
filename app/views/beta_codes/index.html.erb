@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Beta codes</h1>
+
+<div id="beta_codes">
+  <% @beta_codes.each do |beta_code| %>
+    <%= render beta_code %>
+    <p>
+      <%= link_to "Show this beta code", beta_code %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New beta code", new_beta_code_path %>

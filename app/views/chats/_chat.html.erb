@@ -1,0 +1,9 @@
+<div>
+  <ul>
+    <% @messages.each do |message| %>
+      <li class="flex flex-row">
+        <%= render message %>
+      </li>
+    <% end %>
+  </ul>
+</div>

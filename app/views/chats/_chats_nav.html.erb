@@ -1,0 +1,34 @@
+<div class="navbar bg-base-200 flex p-4 flex-col md:flex-row gap-2 place-content-between">
+  <div>
+    <%== pagy_info(pagy, item_name: 'Chat'.pluralize(pagy.count)) %>
+  </div>
+  <div>
+    <ul class="flex flex-row space-x-2">
+      <li>
+        <%= link_to "New", new_chat_path, class: "btn btn-xs lg:btn-sm" + (current_page?(action: 'new') ? " btn-active btn-disabled" : "") %>
+      </li>
+      <div class="divider divider-horizontal">
+      </div>
+      <li>
+        <%= link_to "Listed", chats_path, class: "btn btn-xs lg:btn-sm" + (current_page?(action: 'index') ? " btn-active btn-disabled" : "") %>
+      </li>
+      <li>
+        <%= link_to "Visited", visited_chats_path, class: "btn btn-xs lg:btn-sm" + (current_page?(action: 'visited') ? " btn-active btn-disabled" : "") %>
+      </li>
+      <li>
+        <%= link_to "Searched", searched_chats_path, class: "btn btn-xs lg:btn-sm" + (current_page?(action: 'searched') ? " btn-active btn-disabled" : "") %>
+      </li>
+      <li>
+        <%= link_to "Subscribed", subscribed_chats_path, class: "btn btn-xs lg:btn-sm" + (current_page?(action: 'subscribed') ? " btn-active btn-disabled" : "") %>
+      </li>
+      <li>
+        <%= link_to "Owned", owned_chats_path, class: "btn btn-xs lg:btn-sm" + (current_page?(action: 'owned') ? " btn-active btn-disabled" : "") %>
+      </li>
+    </ul>
+  </div>
+  <% if pagy.pages > 1 %>
+    <div>
+        <%== pagy_nav(pagy)%>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --felt-background-image: url("felt_manor_background.png");
+}
+
+html {
+    background-image: var(--background-image);
+}
+
+@font-face
+{
+	font-family: 'alternianFontOne';
+	src: url("Hiveswapalternian-Regular.otf");
+}
+
+.alternian {
+	font-family: 'Alternian CBB', 'alternianFontOne', TrollType, mono !important;
+	direction: RTL;
+	text-rendering: optimizeLegibility;
+	unicode-bidi:bidi-override;
+	text-align:right;
+	font-size:140%;
+	line-height:105%;
+	vertical-align:-2px;
+}
+
+.alternian * {
+	font-family: 'Alternian CBB', 'alternianFontOne', TrollType, mono !important;
+	text-rendering: optimizeLegibility;
+}

@@ -1,0 +1,66 @@
+<div class="card bg-base-200 shadow-xl h-full place-content-between">
+    <div class="card-body">
+        <div class="card-title divider text-lg sm:text-sm underline"><%= link_to chat.url, chat %></div>
+        <% if chat.group_chat? %>
+            <div class="collapse collapse-arrow bg-base-300 max-w-full">
+                <input type="checkbox" name="chat-accordion" /> 
+                <div class="collapse-title text-xl font-medium max-w-full">
+                    Description
+                </div>
+                <div class="collapse-content max-w-full bg-base-100 text-neutral-content overflow-hidden"> 
+                    <div class="w-full max-w-full prose"><%== raw_tag_desanitize(lower_bbcode(raw_tag_sanitize(chat.group_chat.description)).bbcode_to_html) %></div>
+                </div>
+                </div>
+                <div class="collapse collapse-arrow bg-base-300 max-w-full">
+                <input type="checkbox" name="chat-accordion" /> 
+                <div class="collapse-title text-xl font-medium max-w-full">
+                    Topic
+                </div>
+                <div class="collapse-content max-w-full bg-base-100 text-neutral-content overflow-hidden"> 
+                    <div class="w-full max-w-full prose"><%== raw_tag_desanitize(lower_bbcode(raw_tag_sanitize(chat.group_chat.topic)).bbcode_to_html) %></div>
+                </div>
+                </div>
+                <div class="collapse collapse-arrow bg-base-300">
+            </div>
+        <% else %>
+            <div class="h-full">
+            </div>
+        <% end %>
+        <div class="card-actions pt-2 justify-end">
+            <% if current_account.chats.include?(chat) %>
+                <p>Visited</p>
+            <% end %>
+            <div class="badge badge-outline">
+                <%= chat.type %>
+            </div>
+            <% if chat.group_chat? %>
+                <% case chat.group_chat.level 
+                    when "sfw" %>
+                        <div class="badge badge-success badge-outline">
+                            <%= chat.group_chat.level %>
+                        </div>
+                    <% when "nsfw" %>
+                        <div class="badge badge-accent badge-outline">
+                            <%= chat.group_chat.level %>
+                        </div>
+                    <% when "nsfws" %>
+                        <div class="badge badge-secondary badge-outline">
+                            <%= chat.group_chat.level %>
+                        </div>
+                    <% when "nsfwv" %>
+                        <div class="badge badge-warning badge-outline">
+                            <%= chat.group_chat.level %>
+                        </div>
+                    <% when "nsfw-extreme" %>
+                        <div class="badge badge-error badge-outline">
+                            <%= chat.group_chat.level %>
+                        </div>
+                    <% else %>
+                        <div class="badge badge-outline">
+                            <%= chat.group_chat.level %>
+                        </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

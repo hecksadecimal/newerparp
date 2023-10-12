@@ -1,0 +1,27 @@
+<%= form_with(model: beta_code) do |form| %>
+  <% if beta_code.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(beta_code.errors.count, "error") %> prohibited this beta_code from being saved:</h2>
+
+      <ul>
+        <% beta_code.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :code, style: "display: block" %>
+    <%= form.text_area :code %>
+  </div>
+
+  <div>
+    <%= form.label :account_id, style: "display: block" %>
+    <%= form.text_field :account_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

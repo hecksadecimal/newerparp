@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @beta_code %>
+
+<div>
+  <%= link_to "Edit this beta code", edit_beta_code_path(@beta_code) %> |
+  <%= link_to "Back to beta codes", beta_codes_path %>
+
+  <%= button_to "Destroy this beta code", @beta_code, method: :delete %>
+</div>

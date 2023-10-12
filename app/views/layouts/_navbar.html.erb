@@ -1,0 +1,23 @@
+<div class="navbar bg-base-300">
+  <div class="flex-1 px-2 lg:flex-none">
+    <%= link_to root_path, class: "w-64" do %>
+        <%= inline_svg_tag "horizontal_full_color.svg" %>
+    <% end %>
+  </div> 
+  <div class="flex justify-end flex-1 px-2">
+    <div class="flex items-stretch space-x-4">
+      <%= render "layouts/theme_select" %>
+      <% if account_signed_in? %>
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost rounded-btn"><%= current_account.username %></label>
+        <ul tabindex="0" class="menu dropdown-content z-[99] p-2 shadow bg-accent text-accent-content rounded-box w-52 mt-4">
+          <li><a class="hover:text-accent-content">Settings</a></li>
+          <li><%= button_to "Log Out", destroy_account_session_path, method: :delete, class: "hover:text-accent-content text-accent-content" %></li> 
+        </ul>
+      </div>
+      <% else %>
+        <%= link_to "Log In", new_account_session_path, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
