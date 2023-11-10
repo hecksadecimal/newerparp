@@ -11,17 +11,21 @@ class ChatsController < ApplicationController
 
   # GET /chat/something or /chat/something.json
   def show
+    authorize! @chat
+
     @messages = @chat.messages.order(posted: 'DESC').first(100).reverse
     render :layout => 'application_chat'
   end
 
   # GET /chat/something/log or /chat/something/log.json
   def log
+    authorize! @chat, to: :show?
+    
     params.permit(:date_between, :commit, :id)
 
     start = @chat.created
     finish = @chat.last_message
-    puts params
+
     if params[:date_between]
       date_split = params[:date_between].split(" - ")
       if date_split.size == 2
@@ -60,6 +64,7 @@ class ChatsController < ApplicationController
 
   # GET /chat/something/edit
   def edit
+    authorize! @chat, to: :update?
   end
 
   # POST /chats or /chats.json
@@ -79,6 +84,8 @@ class ChatsController < ApplicationController
 
   # PATCH/PUT /chat/something or /chat/something.json
   def update
+    authorize! @chat, to: :update?
+
     respond_to do |format|
       if @chat.update(chat_params)
         format.html { redirect_to chat_url(@chat), notice: "Chat was successfully updated." }
@@ -92,6 +99,8 @@ class ChatsController < ApplicationController
 
   # DELETE /chat/something or /chat/something.json
   def destroy
+    authorize! @chat, to: :destroy?
+
     @chat.destroy!
 
     respond_to do |format|

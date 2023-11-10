@@ -49,6 +49,8 @@ gem "bootsnap", require: false
 
 gem 'pagy', '~> 6.1'
 
+gem "action_policy"
+
 gem 'bbcode-rails'
 
 group :development, :test do

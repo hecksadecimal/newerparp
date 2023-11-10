@@ -17,10 +17,6 @@ class Account < ApplicationRecord
     end
   end
 
-  def ability
-    @ability ||= Ability.new(self)
-  end
-
   def admin?
     !admin_tier.nil?
   end
