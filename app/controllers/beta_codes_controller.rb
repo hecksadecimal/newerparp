@@ -23,7 +23,7 @@ class BetaCodesController < ApplicationController
 
   # GET /beta_codes/1/edit
   def edit
-    redirect_to :root_url
+    redirect_to root_url
     return
   end
 
