@@ -4,23 +4,34 @@ class BetaCodesController < ApplicationController
   # GET /beta_codes or /beta_codes.json
   def index
     @beta_codes = BetaCode.all
+    redirect_to root_url
+    return
   end
 
   # GET /beta_codes/1 or /beta_codes/1.json
   def show
+    redirect_to root_url
+    return
   end
 
   # GET /beta_codes/new
   def new
+    redirect_to root_url
+    return
     @beta_code = BetaCode.new
   end
 
   # GET /beta_codes/1/edit
   def edit
+    redirect_to :root_url
+    return
   end
 
   # POST /beta_codes or /beta_codes.json
   def create
+    redirect_to root_url
+    return
+
     @beta_code = BetaCode.new(beta_code_params)
 
     respond_to do |format|
@@ -36,6 +47,9 @@ class BetaCodesController < ApplicationController
 
   # PATCH/PUT /beta_codes/1 or /beta_codes/1.json
   def update
+    redirect_to root_url
+    return
+
     respond_to do |format|
       if @beta_code.update(beta_code_params)
         format.html { redirect_to beta_code_url(@beta_code), notice: "Beta code was successfully updated." }
@@ -49,6 +63,9 @@ class BetaCodesController < ApplicationController
 
   # DELETE /beta_codes/1 or /beta_codes/1.json
   def destroy
+    redirect_to root_url
+    return
+
     @beta_code.destroy!
 
     respond_to do |format|
