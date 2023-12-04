@@ -1,4 +1,4 @@
-class Tag < BBCode::Tag
+class STag < BBCode::Tag
   # If your block uses an argument or can have content add the following line
   # with your needed option
   block_options :content
