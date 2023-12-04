@@ -1,6 +1,5 @@
 class BetaCodesController < ApplicationController
   before_action :set_beta_code, only: %i[ show edit update destroy ]
-  load_and_authorize_resource
 
   # GET /beta_codes or /beta_codes.json
   def index
