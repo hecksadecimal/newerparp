@@ -15,7 +15,7 @@ class ChatPolicy < ApplicationPolicy
   end
 
   def show?
-    (user.admin? && user.permissions.where(permission: "groups").any?) || ["listed", "unlisted", "pinned"].include?(record.group_chat.publicity) || record.accounts.include?(user)
+    (user.admin? && user.permissions.where(permission: "groups").any?) || (record.group_chat.present? && ["listed", "unlisted", "pinned"].include?(record.group_chat.publicity)) || record.accounts.include?(user)
   end
 
   def update?
