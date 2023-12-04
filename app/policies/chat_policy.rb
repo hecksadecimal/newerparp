@@ -10,6 +10,10 @@ class ChatPolicy < ApplicationPolicy
   #   user.admin? || (user.id == record.user_id)
   # end
 
+  def create?
+    user.beta_code.present?
+  end
+
   def show?
     (user.admin? && user.permissions.where(permission: "groups").any?) || ["listed", "unlisted", "pinned"].include?(record.group_chat.publicity) || record.accounts.include?(user)
   end

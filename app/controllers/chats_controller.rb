@@ -1,6 +1,6 @@
 class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show log edit update destroy ]
-  before_action :authenticate_account!, only: %i[ subscribed new edit create update destroy ]
+  before_action :authenticate_account!, only: %i[ visited owned searched show subscribed new edit create update destroy ]
 
   rescue_from Pagy::OverflowError, with: :redirect_to_last_page
 
@@ -12,6 +12,10 @@ class ChatsController < ApplicationController
   # GET /chat/something or /chat/something.json
   def show
     authorize! @chat
+    if !current_account.beta_code.present?
+      redirect_to log_chat_path(@chat)
+      return
+    end
 
     @messages = @chat.messages.order(posted: 'DESC').first(100).reverse
     render :layout => 'application_chat'
@@ -60,6 +64,7 @@ class ChatsController < ApplicationController
   # GET /chats/new
   def new
     @chat = Chat.new
+    authorize! @chat, to: :create?
   end
 
   # GET /chat/something/edit
@@ -70,6 +75,7 @@ class ChatsController < ApplicationController
   # POST /chats or /chats.json
   def create
     @chat = Chat.new(chat_params)
+    authorize! @chat, to: :create?
 
     respond_to do |format|
       if @chat.save

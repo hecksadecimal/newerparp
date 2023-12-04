@@ -7,6 +7,7 @@ class Account < ApplicationRecord
   
   belongs_to :admin_tier
   has_many :permissions, through: :admin_tier
+  has_one :beta_code
 
   has_many :messages
   

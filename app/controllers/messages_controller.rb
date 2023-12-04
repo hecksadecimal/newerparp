@@ -1,27 +1,33 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: %i[ show edit update destroy ]
+  before_action :authenticate_account!, only: %i[ new index edit create update destroy ]
 
-  # GET /messages or /messages.json
+
+  # GET /chats or /chats.json
   def index
-    @messages = Message.all
+    @pagy, @messages = pagy(Message.all, items: 30)
   end
 
   # GET /messages/1 or /messages/1.json
   def show
+    authorize! @message
   end
 
   # GET /messages/new
   def new
     @message = Message.new
+    authorize! @message, to: :create?
   end
 
   # GET /messages/1/edit
   def edit
+    authorize! @message, to: :update?
   end
 
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params)
+    authorize! @message, to: :create?
 
     respond_to do |format|
       if @message.save
@@ -36,6 +42,7 @@ class MessagesController < ApplicationController
 
   # PATCH/PUT /messages/1 or /messages/1.json
   def update
+    authorize! @message, to: :update?
     respond_to do |format|
       if @message.update(message_params)
         format.html { redirect_to message_url(@message), notice: "Message was successfully updated." }
@@ -49,6 +56,8 @@ class MessagesController < ApplicationController
 
   # DELETE /messages/1 or /messages/1.json
   def destroy
+    authorize! @message, to: :destroy?
+
     @message.destroy!
 
     respond_to do |format|

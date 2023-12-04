@@ -27,7 +27,7 @@
             </div>
         <% end %>
         <div class="card-actions pt-2 justify-end">
-            <% if current_account.chats.include?(chat) %>
+            <% if current_account && current_account.chats.include?(chat) %>
                 <p>Visited</p>
             <% end %>
             <div class="badge badge-outline">
