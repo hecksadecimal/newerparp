@@ -5,7 +5,7 @@
     <% end %>
   </div> 
   <div class="flex justify-end flex-1 px-2">
-    <div class="flex items-stretch space-x-4">
+    <div class="flex flex-col md:flex-row items-stretch space-x-4">
       <%= render "layouts/theme_select" %>
       <% if account_signed_in? %>
       <div class="dropdown dropdown-end">
