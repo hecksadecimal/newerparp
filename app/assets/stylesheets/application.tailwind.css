@@ -240,7 +240,7 @@ html {
   }
   
   .daterangepicker td.active, .daterangepicker td.active:hover {
-	@apply bg-accent-focus;
+	@apply bg-accent;
 	@apply text-accent-content;
 	border-color: transparent;
   }
@@ -345,7 +345,7 @@ html {
   }
   
   .daterangepicker .ranges li.active {
-	@apply bg-accent-focus;
+	@apply bg-accent;
 	@apply text-accent-content;
   }
   
