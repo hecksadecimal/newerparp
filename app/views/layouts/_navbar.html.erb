@@ -26,5 +26,8 @@
     <li><%= link_to "Home", root_path, class: "btn" %></li>
     <li><div class="btn btn-disabled">Search</div></li>
     <li><%= link_to "Chats", chats_path, class: "btn" %></li>
+    <% if current_account && current_account.admin? %>
+      <li><%= link_to "Admin", admin_root_path, class: "btn" %></li>
+    <% end %>
   </ul>
 </div>
