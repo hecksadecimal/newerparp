@@ -59,7 +59,7 @@ class AdminTierDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how admin tiers are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(admin_tier)
-  #   "AdminTier ##{admin_tier.id}"
-  # end
+  def display_resource(admin_tier)
+    "#{admin_tier.name}"
+  end
 end
