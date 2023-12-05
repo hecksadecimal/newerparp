@@ -5,11 +5,6 @@ module.exports = {
     './app/assets/stylesheets/**/*.css',
     './app/javascript/**/*.js'
   ],
-  safelist: [
-    {
-      pattern: /./,
-    },
-  ],
   theme: {
     fontFamily: {
       'sans': ["Courier", "Courier New", "Ricty", "Inconsolata", "monospace"]
