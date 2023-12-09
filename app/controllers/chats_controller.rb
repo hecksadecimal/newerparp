@@ -1,6 +1,7 @@
 class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show log edit update destroy ]
   before_action :authenticate_account!, only: %i[ visited owned searched show subscribed new edit create update destroy ]
+  before_action :add_sentry_context, only: %i[ show log edit create update destroy ]
 
   rescue_from Pagy::OverflowError, with: :redirect_to_last_page
 
@@ -137,5 +138,18 @@ class ChatsController < ApplicationController
 
     def redirect_to_last_page(exception)
       redirect_to url_for(page: exception.pagy.last), notice: "Page ##{params[:page]} is overflowing. Showing page #{exception.pagy.last} instead."
+    end
+
+    def add_sentry_context
+      Sentry.configure_scope do |scope|
+        scope.set_context(
+          'Chat',
+          {
+            name: @chat.url,
+            id: @chat.id,
+            type: @chat.type
+          }
+        )
+      end      
     end
 end
