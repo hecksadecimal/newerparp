@@ -11,7 +11,7 @@ class ChatPolicy < ApplicationPolicy
   # end
 
   def create?
-    user.beta_code.present?
+    UNLEASH.is_enabled? "beta", @unleash_context
   end
 
   def show?

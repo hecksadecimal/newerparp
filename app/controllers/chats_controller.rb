@@ -12,7 +12,7 @@ class ChatsController < ApplicationController
   # GET /chat/something or /chat/something.json
   def show
     authorize! @chat
-    if !current_account.beta_code.present?
+    if UNLEASH.is_disabled? "beta", @unleash_context
       redirect_to log_chat_path(@chat)
       return
     end

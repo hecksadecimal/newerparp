@@ -15,7 +15,7 @@ class MessagePolicy < ApplicationPolicy
     end
 
     def create?
-      user.beta_code.present?
+      UNLEASH.is_enabled? "beta", @unleash_context
     end
   
     def show?
@@ -23,7 +23,7 @@ class MessagePolicy < ApplicationPolicy
     end
   
     def update?
-      user.beta_code.present? && record.account == user || (user.admin? && user.permissions.where(permission: "groups").any?)
+      UNLEASH.is_enabled? "beta", @unleash_context && record.account == user || (user.admin? && user.permissions.where(permission: "groups").any?)
     end
     
     def destroy?
