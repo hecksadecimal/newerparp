@@ -1,6 +1,6 @@
 
 <% if message.type == "ic" || message.type == "ooc" %>
-    <%== "<span class='flex flex-row content-center space-x-1#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-primary'"}>#{!message.acronym.empty? ? "<p>" + message.acronym + ":</p>" : ""}#{message.text.bbcode_to_html}</span>" %>
+    <%== "<span class='flex flex-row grow space-x-1#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-primary'"}>#{!message.acronym.empty? ? "<p class=\"mx-2\">" + message.acronym + ":</p>" : ""}#{message.text.bbcode_to_html}</span>" %>
 <% else %>
-    <%== "<span class='flex flex-row content-center text-primary space-x-1'>#{message.text}</span>" %>
+    <%== "<span class='flex flex-row grow text-primary space-x-1'>#{message.text}</span>" %>
 <% end %>

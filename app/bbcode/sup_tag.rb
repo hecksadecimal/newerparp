@@ -7,6 +7,6 @@ class SupTag < BBCode::Tag
   # So if you only take an argument, remove contents, same the other way around.
   # However if you have both, they have to be in the order of `arg, contents`
   on_layout do |contents|
-    "<sup>#{contents}</sup>"
+    "<p class=\"text-xs\">#{contents}</p>"
   end
 end
