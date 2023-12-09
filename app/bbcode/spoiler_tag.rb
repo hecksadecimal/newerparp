@@ -8,10 +8,10 @@ class SpoilerTag < BBCode::Tag
   # However if you have both, they have to be in the order of `arg, contents`
   on_layout do |contents|
     "<span class=\"flex break-words whitespace-pre-wrap\">
-      <label class=\"swap self-center\">
+      <label class=\"swap\">
         <input type=\"checkbox\" />
-        <span class=\"swap-on\"><span>#{contents}</span></span>
-        <span class=\"swap-off bg-current\"><span class=\"absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-base-100 font-black\">SPOILER</span><span class=\"invisible\">#{contents}</span></span>
+        <span class=\"swap-off bg-current\"><span class=\"absolute z-10 w-full text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-base-100 font-black\">SPOILER</span></span>
+        <span class=\"swap-on\">#{contents}</span>
       </label>
     </span>"
   end
