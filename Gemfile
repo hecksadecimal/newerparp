@@ -52,6 +52,7 @@ gem 'pagy', '~> 6.1'
 gem "action_policy"
 
 gem 'bbcode-rails', git: "https://github.com/hecksadecimal/bbcode-rails"
+#gem 'bbcode-rails', path: "../bbcode-rails"
 
 gem "administrate"
 

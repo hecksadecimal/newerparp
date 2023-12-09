@@ -1,6 +1,5 @@
-GIT
-  remote: https://github.com/hecksadecimal/bbcode-rails
-  revision: b88b4a2cb742602114da78c35ab6eceba779e79e
+PATH
+  remote: ../bbcode-rails
   specs:
     bbcode-rails (0.9.4)
 
