@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/hecksadecimal/bbcode-rails
+  revision: b88b4a2cb742602114da78c35ab6eceba779e79e
+  specs:
+    bbcode-rails (0.9.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -87,7 +93,6 @@ GEM
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
     base64 (0.1.1)
-    bbcode-rails (0.9.4)
     bcrypt (3.1.19)
     bigdecimal (3.1.4)
     bindex (0.8.1)
@@ -312,7 +317,7 @@ PLATFORMS
 DEPENDENCIES
   action_policy
   administrate
-  bbcode-rails
+  bbcode-rails!
   bcrypt (~> 3.1.7)
   bootsnap
   capybara
