@@ -7,5 +7,8 @@ import { application } from "./application"
 import DatepickerController from "./datepicker_controller"
 application.register("datepicker", DatepickerController)
 
+import SpoilerController from "./spoiler_controller"
+application.register("spoiler", SpoilerController)
+
 import ThemeSelectController from "./theme_select_controller"
 application.register("theme-select", ThemeSelectController)

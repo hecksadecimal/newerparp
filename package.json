@@ -16,5 +16,8 @@
     "postcss": "latest",
     "tailwindcss": "latest",
     "theme-change": "^2.5.0"
+  },
+  "devDependencies": {
+    "tailwindcss-inner-border": "^0.2.0"
   }
 }
