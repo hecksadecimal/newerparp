@@ -8,7 +8,7 @@
                     Description
                 </div>
                 <div class="collapse-content max-w-full bg-base-100 text-neutral-content overflow-hidden"> 
-                    <div class="w-full max-w-full prose"><%== raw_tag_desanitize(lower_bbcode(raw_tag_sanitize(chat.group_chat.description)).bbcode_to_html) %></div>
+                    <div class="w-full max-w-full prose"><%== chat.group_chat.description.bbcode_to_html %></div>
                 </div>
                 </div>
                 <div class="collapse collapse-arrow bg-base-300 max-w-full">
@@ -17,7 +17,7 @@
                     Topic
                 </div>
                 <div class="collapse-content max-w-full bg-base-100 text-neutral-content overflow-hidden"> 
-                    <div class="w-full max-w-full prose"><%== raw_tag_desanitize(lower_bbcode(raw_tag_sanitize(chat.group_chat.topic)).bbcode_to_html) %></div>
+                    <div class="w-full max-w-full prose"><%== chat.group_chat.topic.bbcode_to_html %></div>
                 </div>
                 </div>
                 <div class="collapse collapse-arrow bg-base-300">
