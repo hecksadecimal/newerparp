@@ -172,6 +172,7 @@ GEM
     mini_mime (1.1.5)
     minitest (5.20.0)
     msgpack (1.7.2)
+    murmurhash3 (0.1.7)
     mutex_m (0.1.2)
     net-imap (0.3.7)
       date
@@ -287,6 +288,8 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unleash (5.0.0)
+      murmurhash3 (~> 0.1.7)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -334,6 +337,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
+  unleash (~> 5.0.0)
   web-console
 
 RUBY VERSION
