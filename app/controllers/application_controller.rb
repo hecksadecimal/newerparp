@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
     include ApplicationHelper
 
     before_action :set_unleash_context
+    before_action :set_sentry_context
 
     authorize :user, through: :current_account
 
@@ -24,5 +25,13 @@ class ApplicationController < ActionController::Base
                 betakey: (current_account && current_account.beta_code.present?) ? current_account.beta_code.code : "",
                 properties: { betakey: (current_account && current_account.beta_code.present?) ? current_account.beta_code.code : "" }
             )
+        end
+
+        def set_sentry_context
+            if current_account
+                Sentry.set_user(id: current_account.id, username: current_account.username, email: current_account.email, ip: request.remote_ip)
+            else
+                Sentry.set_user(ip: request.remote_ip)
+            end
         end
 end
