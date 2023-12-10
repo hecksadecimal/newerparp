@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AutofocusController from "./autofocus_controller"
+application.register("autofocus", AutofocusController)
+
 import AutoscrollController from "./autoscroll_controller"
 application.register("autoscroll", AutoscrollController)
 

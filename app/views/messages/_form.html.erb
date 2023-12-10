@@ -15,7 +15,7 @@
     <div class="flex flex-row join">
       <%= form.hidden_field :chat_id, value: message.chat_id %>
       <% if message.chat.accounts.include?(current_account) %>
-        <%= form.text_field :text, class: "grow join-item bg-base-100 input input-bordered input-accent" %>
+        <%= form.text_field :text, data: { controller: "autofocus"}, class: "grow join-item bg-base-100 input input-bordered input-accent" %>
         <%= form.submit "Send", class: "btn btn-primary join-item" %>
       <% else %>
         <%= form.text_field :text, disabled: true, placeholder: "You have not joined this chat. Input disabled.", class: "grow join-item bg-base-100 input input-bordered input-accent" %>
