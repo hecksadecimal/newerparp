@@ -30,7 +30,7 @@ RUN curl -fsSL https://bun.sh/install | bash -s -- "${BUN_VERSION}"
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
-COPY bbcode-rails ./bbcode-rails
+ADD bbcode-rails /rails/bbcode-rails
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
