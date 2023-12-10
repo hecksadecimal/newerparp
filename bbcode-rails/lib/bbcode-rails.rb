@@ -79,7 +79,7 @@ module BBCode
             tag = current_tag
             until tag.is_a? Array
               len = tag.name.length
-              if str[pos+1,len].downcase == tag.name and str[pos+len+1] =~ tag_close
+              if str[pos+1,len] && str[pos+1,len].downcase == tag.name and str[pos+len+1] =~ tag_close
                 # If it's the current one?
                 if current_tag == tag
                   current_tag = tag.parent
@@ -103,7 +103,7 @@ module BBCode
             pos = pos.next
             next
           end
-          while not (str[pos] =~ tag_close and str[pos] =~ tag_arg and pos < str.length) and str[pos].downcase =~ tag_name
+          while not (str[pos] =~ tag_close and str[pos] =~ tag_arg and pos < str.length) and str[pos] && str[pos].downcase =~ tag_name
             name << str[pos]
             pos = pos.next
           end
