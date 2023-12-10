@@ -12,7 +12,7 @@ class ChatsController < ApplicationController
 
   # GET /chat/something or /chat/something.json
   def show
-    authorize! @chat
+    authorize! @chat, to: :show?
     if UNLEASH.is_disabled? "beta", @unleash_context
       redirect_to log_chat_path(@chat)
       return
@@ -141,15 +141,18 @@ class ChatsController < ApplicationController
     end
 
     def add_sentry_context
-      Sentry.configure_scope do |scope|
-        scope.set_context(
-          'Chat',
-          {
-            name: @chat.url,
-            id: @chat.id,
-            type: @chat.type
-          }
-        )
-      end      
+      if !@chat.nil?
+        Sentry.configure_scope do |scope|
+          scope.set_context(
+            'Chat',
+            {
+              name: @chat.url,
+              id: @chat.id,
+              type: @chat.type
+            }
+          )
+        end
+      end   
     end
+
 end

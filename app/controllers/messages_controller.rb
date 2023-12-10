@@ -27,10 +27,23 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params)
+    @message.account = current_account
     authorize! @message, to: :create?
+
+    chat_user = ChatUser.find_by(user_id: @message.account.id, chat_id: @message.chat.id)
+    @message.acronym = chat_user.acronym
+    @message.name = chat_user.name
+    @message.color = chat_user.color
+    @message.type = "ic"
+    @message.posted = Time.now
 
     respond_to do |format|
       if @message.save
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("input_chat_#{@message.chat_id}", partial: "messages/form",
+            locals: {message: Message.new(chat_id: @message.chat_id)}
+          )
+        end
         format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
       else
@@ -74,6 +87,6 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.fetch(:message, {})
+      params.require(:message).permit(:chat_id, :text)
     end
 end

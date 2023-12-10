@@ -1,9 +1,35 @@
-<div class="bg-base-100 text-stone-950 p-4">
-  <ul>
+<% if !log %>
+  <%= turbo_stream_from dom_id(@chat) %>
+<% end %>
+
+<%
+=begin%>
+ <div class="bg-base-100 text-base-content grow p-4">
+  <div class="flex flex-row bg-base-300 p-2">
+    <%= render "layouts/theme_select" %>
+  </div>
+  <ul id="messages" class="shrink overflow-y-auto overscroll-contain">
     <% @messages.each do |message| %>
-      <li class="flex flex-row">
-        <%= render message %>
-      </li>
+      <%= render message %>
     <% end %>
   </ul>
+  <div class="w-full">
+    <%= render 'messages/form', message: Message.new(chat: @chat) %>
+  </div>
+</div> 
+<%
+=end%>
+
+<div class="grid grid-cols-1 grid-rows-12 bg-base-100 text-base-content md:p-4 w-full h-full max-h-screen md:mb-4">
+  <div class="row-span-1 col-span-1 bg-base-300 p-2">
+    <%= render "layouts/theme_select" %>
+  </div>
+  <ul id="messages" data-controller="autoscroll" class="row-span-10 col-span-1 overflow-y-auto">
+    <% @messages.each do |message| %>
+      <%= render message %>
+    <% end %>
+  </ul>
+  <div class="row-span-1 col-span-1 w-full pb-2">
+    <%= render 'messages/form', message: Message.new(chat: @chat) %>
+  </div>
 </div>

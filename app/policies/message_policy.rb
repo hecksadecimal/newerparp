@@ -15,7 +15,7 @@ class MessagePolicy < ApplicationPolicy
     end
 
     def create?
-      UNLEASH.is_enabled? "beta", @unleash_context
+      (user.admin? && user.permissions.where(permission: "groups").any?) || ( UNLEASH.is_enabled?("beta", @unleash_context) && user.id == record.user_id && allowed_to?(:show?, record.chat) )
     end
   
     def show?

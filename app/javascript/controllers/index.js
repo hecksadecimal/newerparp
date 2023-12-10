@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AutoscrollController from "./autoscroll_controller"
+application.register("autoscroll", AutoscrollController)
+
 import DatepickerController from "./datepicker_controller"
 application.register("datepicker", DatepickerController)
 

@@ -1,6 +1,7 @@
-
-<% if message.type == "ic" || message.type == "ooc" %>
-    <%== "<span class='flex flex-row grow space-x-1#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-primary'"}>#{!message.acronym.empty? ? "<p class=\"mx-2\">" + message.acronym + ":</p>" : ""}#{message.text.bbcode_to_html}</span>" %>
-<% else %>
-    <%== "<span class='flex flex-row grow text-primary space-x-1'>#{message.text}</span>" %>
-<% end %>
+<li id="<%= dom_id message %>" class="flex flex-row">
+    <% if message.type == "ic" || message.type == "ooc" %>
+        <%== "<span class='flex flex-row grow space-x-1#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-primary'"}>#{!message.acronym.empty? ? "<p class=\"mx-2\">" + message.acronym + ":</p>" : ""}#{message.text.bbcode_to_html}</span>" %>
+    <% else %>
+        <%== "<span class='flex flex-row grow text-primary space-x-1'>#{message.text}</span>" %>
+    <% end %>
+</li>
