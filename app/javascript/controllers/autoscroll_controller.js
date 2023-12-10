@@ -8,7 +8,6 @@ export default class extends Controller {
       "DOMNodeInserted",
       (event) => {
         var scrollVal = this.element.scrollHeight - this.element.scrollTop - this.element.clientHeight;
-        console.log(scrollVal)
         if (scrollVal < 30) {
           this.element.scrollTo(0, this.element.scrollHeight);
         }
