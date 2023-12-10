@@ -10,6 +10,18 @@ class BetaKeyStrategy
     end
 end
 
+class AdminStrategy
+    def name
+      'Admin'
+    end
+
+    def is_enabled?(params = {}, context = nil)
+      return false unless !context.properties.key?("admin") && !context.properties[:admin] == true
+      return false unless context.class.name == 'Unleash::Context'
+      return true
+    end
+end
+
 Unleash.configure do |config|
     config.app_name = "Newerparp"
     config.url      = ENV.fetch("UNLEASH_API") { "" }
