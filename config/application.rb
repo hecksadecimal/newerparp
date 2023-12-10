@@ -10,6 +10,18 @@ if ['development', 'test'].include? ENV['RAILS_ENV']
   Dotenv::Railtie.load
 end
 
+class SkippingSassCompressor
+  def compress(string)
+    options = { syntax: :scss, cache: false, read_cache: false, style: :compressed}
+    begin
+      Sprockets::Autoload::SassC::Engine.new(string, options).render
+    rescue => e
+      puts "Could not compress '#{string[0..65]}'...: #{e.message}, skipping compression"
+      string
+    end
+  end
+end
+
 module Newerparp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -26,5 +38,6 @@ module Newerparp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.assets.css_compressor = SkippingSassCompressor.new
   end
 end
