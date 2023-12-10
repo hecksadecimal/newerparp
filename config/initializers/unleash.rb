@@ -30,6 +30,7 @@ Unleash.configure do |config|
     config.logger   = Rails.logger
 
     config.strategies.add(BetaKeyStrategy.new)
+    config.strategies.add(AdminStrategy.new)
 end
   
 UNLEASH = Unleash::Client.new
