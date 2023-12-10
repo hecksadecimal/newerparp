@@ -10,6 +10,9 @@ application.register("autofocus", AutofocusController)
 import AutoscrollController from "./autoscroll_controller"
 application.register("autoscroll", AutoscrollController)
 
+import ColouradjustController from "./colouradjust_controller"
+application.register("colouradjust", ColouradjustController)
+
 import DatepickerController from "./datepicker_controller"
 application.register("datepicker", DatepickerController)
 

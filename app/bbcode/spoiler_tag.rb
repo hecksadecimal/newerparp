@@ -7,12 +7,10 @@ class SpoilerTag < BBCode::Tag
   # So if you only take an argument, remove contents, same the other way around.
   # However if you have both, they have to be in the order of `arg, contents`
   on_layout do |contents|
-    "<span class=\"flex break-words whitespace-pre-wrap text-current\">
-      <label data-controller=\"spoiler\" class=\"text-current swap\">
+    "<label data-controller=\"spoiler\" class=\"text-current swap\">
         <input class=\"hidden\" type=\"checkbox\" />
         <span class=\"spoiler-off bg-current\"><span class=\"w-full text-center mx-2 text-base-100 font-black\">SPOILER</span></span>
         <span class=\"spoiler-on hidden px-2 inner-border-2 inner-border-current\">#{contents}</span>
-      </label>
-    </span>"
+      </label>"
   end
 end

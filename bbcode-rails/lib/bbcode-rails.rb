@@ -50,7 +50,7 @@ module BBCode
     tag_close_prefix  = /\//
     tag_arg           = /=/
     tag_arg_delim     = /&quot;/
-    tag_name          = /[-?!:\.\\\/_a-zA-Z0-9\s]/
+    tag_name          = /[-?!\|:\.\\\/_a-zA-Z0-9\s]/
 
     current_state = :text
     current_tag = result

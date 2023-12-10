@@ -18,6 +18,7 @@
     "theme-change": "^2.5.0"
   },
   "devDependencies": {
+    "chroma-js": "^2.4.2",
     "tailwindcss-inner-border": "^0.2.0"
   }
 }
