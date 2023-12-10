@@ -9,8 +9,8 @@ class SpoilerTag < BBCode::Tag
   on_layout do |contents|
     "<label data-controller=\"spoiler\" class=\"text-current swap\">
         <input class=\"hidden\" type=\"checkbox\" />
-        <span class=\"spoiler-off bg-current\"><span class=\"w-full text-center mx-2 text-base-100 font-black\">SPOILER</span></span>
+        <span class=\"spoiler-off bg-current\"><span class=\"spoiler w-full text-center mx-2 text-base-100 font-black\">SPOILER</span></span>
         <span class=\"spoiler-on hidden px-2 inner-border-2 inner-border-current\">#{contents}</span>
-      </label>"
+    </label>"
   end
 end

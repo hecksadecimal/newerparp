@@ -7,6 +7,10 @@ class ColorTag < BBCode::Tag
   # So if you only take an argument, remove contents, same the other way around.
   # However if you have both, they have to be in the order of `arg, contents`
   on_layout do |arg, contents|
-    "<span style='color:#{arg};'>#{contents}</span>"
+    if arg == "#000" or arg == "black" or arg == "#000000"
+      "<span style='color:#666666;'>#{contents}</span>"
+    else
+      "<span style='color:#{arg};'>#{contents}</span>"
+    end
   end
 end
