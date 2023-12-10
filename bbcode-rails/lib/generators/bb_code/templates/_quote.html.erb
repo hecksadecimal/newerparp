@@ -1,0 +1,11 @@
+<blockquote>
+  <p><%= raw message%></p>
+  <footer>
+    <% if user %>
+      <%= link_to user.name, user %>
+    <% else %>
+      <%= user_name %>
+    <% end %>
+  </footer>
+</blockquote>
+

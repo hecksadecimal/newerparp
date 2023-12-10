@@ -3,6 +3,7 @@ module.exports = {
     './app/views/**/*.html.erb',
     './app/helpers/**/*.rb',
     './app/bbcode/*.rb',
+    './bbcode-rails/**/*.rb',
     './app/assets/stylesheets/**/*.css',
     './app/javascript/**/*.js'
   ],

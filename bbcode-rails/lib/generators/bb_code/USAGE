@@ -1,0 +1,26 @@
+bb_code:tag
+
+Description:
+    Generates a BBCode Tag with the given name.
+
+Example:
+    rails generate bbcode:tag user
+
+    This will create:
+        app/bbcode/user_tag.rb
+
+bb_code:install
+
+Description:
+    Generates a few of the most simple tags as examples
+
+Example:
+    rails generate bbcode:install
+
+    This will create:
+      app/bbcode/i_tag.rb
+      app/bbcode/b_tag.rb
+      app/bbcode/quote_tag.rb
+      app/bbcode/img_tag.rb
+      app/views/bbcode/_quote.html.erb
+
