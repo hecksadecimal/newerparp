@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
                 session_id: session.id,
                 remote_address: request.remote_ip,
                 user_id: current_account ? current_account.id : nil,
+                betakey: (current_account && current_account.beta_code.present?) ? current_account.beta_code.code : "",
+                admin: (current_account && current_account.admin?) ? true : false,
                 properties: { 
                     betakey: (current_account && current_account.beta_code.present?) ? current_account.beta_code.code : "",
                     admin: (current_account && current_account.admin?) ? true : false
