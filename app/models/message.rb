@@ -6,6 +6,7 @@ class Message < ApplicationRecord
     }
     
     belongs_to :account, :foreign_key => 'user_id'
+    belongs_to :chat_user, query_constraints: [:chat_id, :user_id]
     belongs_to :chat
 end
   
