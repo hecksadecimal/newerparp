@@ -3,94 +3,49 @@ import chroma from "chroma-js"
 
 // Connects to data-controller="colouradjust"
 
-function saveColours(elements) {
-  for (var i=0, max=elements.length; i < max; i++) {
-    if (elements[i].style.color) {
-      elements[i].setAttribute("originalColor", elements[i].style.color)
-    }
-  }
+function cssColorToRGBA(string) {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 1;
+  const ctx = canvas.getContext("2d", {willReadFrequently: true});
+  ctx.fillStyle = string;
+  ctx.fillRect(0, 0, 1, 1);
+  return ctx.getImageData(0, 0, 1, 1).data;
 }
 
-function computeColours(elements) {
-  var container = document.getElementById("container")
-  var containerCssObj = window.getComputedStyle(container, null)
-  var bgColour = containerCssObj.getPropertyValue('background-color')
-
-  var total = 0
-
-  var containerCh
-  if (chroma.valid(bgColour)) {
-    containerCh = chroma(bgColour)
-  } else {
-    if (bgColour.startsWith("oklch")) {
-      var values = bgColour.replace("oklch(", "")
-      values = values.replace(")", "")
-      var components = values.split(" ")
-      containerCh = chroma.oklch(parseFloat(components[0]), parseFloat(components[1]), parseFloat(components[2]))
-    }
-  }
-
-  for (var i=0, max=elements.length; i < max; i++) {
-    if (elements[i].getAttribute("originalColor")) {
-      elements[i].style.color = elements[i].getAttribute("originalColor")
-    } else {
-      elements[i].style.color = null
-    }
-
-    var cssObj = window.getComputedStyle(elements[i], null)
-    var colour = cssObj.getPropertyValue('color')
-
-    var ch
-    if (chroma.valid(colour)) {
-      ch = chroma(colour) 
-    } else {
-      if (colour.startsWith("oklch")) {
-        var values = colour.replace("oklch(", "")
-        values = values.replace(")", "")
-        var components = values.split(" ")
-        ch = chroma.oklch(parseFloat(components[0]), parseFloat(components[1]), parseFloat(components[2]))
-      }
-    }
-
-    var contrast = chroma.contrast(containerCh, ch)
-
-    if (contrast < 5.5) {
-      var colourScale = chroma.scale([ch.darken(2.5), ch, ch.brighten(2.5)]).gamma(0.5).colors(12);
-      var sortedScale = colourScale.sort((a, b) => {
-        var chA = chroma(a)
-        var dist = chroma.distance(chA, ch)
-        return dist
-      })
-
-      var testCh
-      var selectedCh
-      for (const colour of sortedScale) {
-        testCh = chroma(colour)
-        var testContrast = chroma.contrast(containerCh, testCh)
-        if (testContrast >= 5.5) {
-          selectedCh = testCh
-          break
-        }
-      }
-      if (selectedCh) {
-        total += 1
-        elements[i].style.color = selectedCh.css()
-        if (elements[i].classList.contains("spoiler")) {
-          elements[i].style.color = null
-        }
-      }
-    }
-  }
+function getInheritedTextColor(el) {
+  var defaultStyle = getDefaultTextColor()
+  var color = window.getComputedStyle(el).color
+  if (color != defaultStyle) return color
+  if (!el.parentElement) return defaultStyle
+  return getInheritedTextColor(el.parentElement)
 }
 
+function getInheritedBackgroundColor(el) {
+  var defaultStyle = getDefaultBackground() 
+  var backgroundColor = window.getComputedStyle(el).backgroundColor
+  if (backgroundColor != defaultStyle) return backgroundColor
+  if (!el.parentElement) return defaultStyle
+  return getInheritedBackgroundColor(el.parentElement)
+}
+
+function getDefaultTextColor() {
+  var div = document.createElement("div")
+  document.head.appendChild(div)
+  var bg = window.getComputedStyle(div).color
+  document.head.removeChild(div)
+  return bg
+}
+
+function getDefaultBackground() {
+  var div = document.createElement("div")
+  document.head.appendChild(div)
+  var bg = window.getComputedStyle(div).backgroundColor
+  document.head.removeChild(div)
+  return bg
+}
 export default class extends Controller {
   connect() {
-    var target = this.element
-    var allElements = Array.prototype.slice.apply(target.querySelectorAll('*'))
-    allElements.push(target)
-
-    saveColours(allElements)
-    computeColours(allElements)
+    var target = this
 
     let options = {
       childList: false,
@@ -105,11 +60,72 @@ export default class extends Controller {
     let observer = new MutationObserver(callback);
 
     function callback (mutations) {
-      allElements = Array.prototype.slice.apply(target.querySelectorAll('*'))
-      allElements.push(target)
-      computeColours(allElements)
+      target.computeColours()
     }
-    
+    this.saveColours()
+    this.computeColours()
+
     observer.observe(document.documentElement, options);
+  }
+
+  saveColours() {
+    let elems = this.element.querySelectorAll("*")
+    for (let el of elems) {
+      if (el.style.color) {
+        el.originalcolor = el.style.color
+      }
+    }
+  }
+
+  resetColours() {
+    let elems = this.element.querySelectorAll("*")
+    for (let el of elems) {
+      if (el.originalcolor) {
+        el.style.color = el.originalcolor
+      } else {
+        el.style.color = null
+      }
+    }
+  }
+
+  computeColours() {
+    const minContrast = 4.0
+    //this.resetColours()
+    let elems = this.element.querySelectorAll("*")
+
+    let bgColor = cssColorToRGBA(getInheritedBackgroundColor(this.element))
+    let bgCh = chroma.rgb(bgColor[0], bgColor[1], bgColor[2], bgColor[3])
+
+    for (let el of elems) {
+      if (el.originalcolor) {
+        el.style.color = el.originalcolor
+      } else {
+        el.style.color = null
+      }
+
+      let color = cssColorToRGBA(getInheritedTextColor(el))
+      let ch = chroma.rgb(color[0], color[1], color[2], color[3])
+      let contrast = chroma.contrast(ch, bgCh)
+      if (contrast < minContrast) {
+        let palette = chroma.scale(['white', ch, 'black']).correctLightness().colors(10)
+        palette.sort((a, b) => {
+          let ca = chroma(a)
+          let cb = chroma(b)
+          let diff = chroma.deltaE(ca, ch) - chroma.deltaE(cb, ch)
+          return diff
+        })
+
+        let bestCh = ch
+        for (const value of palette) {
+          let newCh = chroma(value)
+          let newContrast = chroma.contrast(newCh, bgCh)
+          if (newContrast >= minContrast) {
+            bestCh = newCh
+            break
+          }
+        }
+        el.style.color = bestCh.css()
+      }
+    }
   }
 }

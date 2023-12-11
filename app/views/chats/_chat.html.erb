@@ -5,7 +5,7 @@
     <div class="row-span-1 col-span-1 bg-base-300 p-2">
       <%= render "layouts/theme_select" %>
     </div>
-    <ul id="messages" data-controller="autoscroll" class="row-span-10 col-span-1 overflow-y-auto">
+    <ul id="messages" data-controller="autoscroll colouradjust" class="row-span-10 col-span-1 overflow-y-auto">
       <% @messages.each do |message| %>
         <%= render message %>
       <% end %>
@@ -16,7 +16,7 @@
   </div>
 <% else %>
   <div class="bg-base-100 text-base-content w-full h-full p-4">
-    <ul id="messages">
+    <ul data-controller="colouradjust" id="messages">
       <% @messages.each do |message| %>
         <%= render message %>
       <% end %>
