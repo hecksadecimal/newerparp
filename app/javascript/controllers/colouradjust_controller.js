@@ -97,6 +97,9 @@ export default class extends Controller {
     let bgCh = chroma.rgb(bgColor[0], bgColor[1], bgColor[2], bgColor[3])
 
     for (let el of elems) {
+      if(el.classList.contains("spoiler")) {
+        continue
+      }
       if (el.originalcolor) {
         el.style.color = el.originalcolor
       } else {
@@ -107,7 +110,7 @@ export default class extends Controller {
       let ch = chroma.rgb(color[0], color[1], color[2], color[3])
       let contrast = chroma.contrast(ch, bgCh)
       if (contrast < minContrast) {
-        let palette = chroma.scale([ch.darken(2), ch, ch.brighten(1)]).correctLightness().colors(10)
+        let palette = chroma.scale([chroma.average(['black', ch]), ch, chroma.average(['white', ch])]).gamma(0.25).colors(7)
         palette.sort((a, b) => {
           let ca = chroma(a)
           let cb = chroma(b)
