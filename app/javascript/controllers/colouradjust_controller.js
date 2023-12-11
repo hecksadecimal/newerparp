@@ -107,7 +107,7 @@ export default class extends Controller {
       let ch = chroma.rgb(color[0], color[1], color[2], color[3])
       let contrast = chroma.contrast(ch, bgCh)
       if (contrast < minContrast) {
-        let palette = chroma.scale(['white', ch, 'black']).correctLightness().colors(10)
+        let palette = chroma.scale([ch.darken(2), ch, ch.brighten(1)]).correctLightness().colors(10)
         palette.sort((a, b) => {
           let ca = chroma(a)
           let cb = chroma(b)
