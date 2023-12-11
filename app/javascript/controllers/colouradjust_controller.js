@@ -89,7 +89,7 @@ export default class extends Controller {
   }
 
   computeColours() {
-    const minContrast = 4.0
+    const minContrast = 5.0
     //this.resetColours()
     let elems = this.element.querySelectorAll("*")
 

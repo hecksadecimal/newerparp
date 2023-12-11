@@ -1,7 +1,7 @@
-<li id="<%= dom_id message %>" class="flex flex-row">
+<li data-controller='colouradjust' id="<%= dom_id message %>" class="flex flex-row">
     <% if message.type == "ic" || message.type == "ooc" %>
-        <%== "<span class='grow whitespace-pre-wrap#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-primary'"}>#{!message.acronym.empty? ? message.acronym + ": " : ""}#{message.text.bbcode_to_html}</span>" %>
+        <%== "<span class='grow whitespace-pre-wrap#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-gray-500'"}>#{!message.acronym.empty? ? message.acronym + ": " : ""}#{message.text.bbcode_to_html}</span>" %>
     <% else %>
-        <%== "<span class='grow text-primary whitespace-pre-wrap'>#{message.text}</span>" %>
+        <%== "<span class='grow text-gray-500 whitespace-pre-wrap'>#{message.text}</span>" %>
     <% end %>
 </li>
