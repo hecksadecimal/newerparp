@@ -6,16 +6,43 @@
       <div class="drawer-content max-h-full w-full h-full flex flex-col">
         <!-- Navbar -->
         <div class="w-full h-10 navbar fixed inset-x-0 top-0 p-4 bg-base-300">
-          <div class="flex-1 px-2 mx-2"><%= @chat.url %></div>
+          <div class="navbar-start flex-1 px-2 mx-2">
+            <button class="btn" onclick="chat_modal.showModal();modal_top.scrollIntoView(false);"><%= @chat.url %></button>
+            <dialog id="chat_modal" class="modal modal-bottom sm:modal-middle">
+              <div class="modal-box">
+                <div id="modal_top"></div>
+                <% if @chat.group_chat && @chat.group_chat.topic %>
+                  <div class="divider">Topic</div>
+                  <div class="prose">
+                    <%== @chat.group_chat.topic.bbcode_to_html %>
+                  </div>
+                <% end %>
+                <% if @chat.group_chat && @chat.group_chat.description %>
+                  <div class="divider">Description</div>
+                  <div class="prose">
+                    <%== chat.group_chat.description.bbcode_to_html %>
+                  </div>
+                <% end %>
+              </div>
+              <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+              </form>
+            </dialog>
+          </div>
+          <% if @chat.group_chat && @chat.group_chat.topic %>
+            <div class="navbar-center relative flex overflow-x-hidden hidden md:block">
+              <div class="py-12 animate-marquee whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %>/span></div>
+              <div class="absolute top-0 py-12 animate-marquee2 whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
+            </div>
+          <% end %>
           <div class="flex-none navbar-end lg:hidden">
             <label for="chat-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </label>
           </div> 
-          <div class="flex-none hidden lg:block">
+          <div class="relative top-0 right-0 flex-none hidden lg:block">
             <ul class="menu menu-horizontal">
               <!-- Navbar menu content here -->
-              <%= render "layouts/theme_select" %>
             </ul>
           </div>
         </div>
@@ -29,6 +56,7 @@
           </ul>
           <div class="hidden md:flex divider divider-horizontal"></div>
           <div class="hidden md:block w-80 bg-base-100 pl-4 pt-12 min-h-full">
+            <%= render "layouts/theme_select" %>
             <% if !@online_chat_users.empty? %>
               <div class="divider font-black">Online</div>
             <% end %>
@@ -47,6 +75,7 @@
         <label for="chat-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
         <ul class="menu p-4 w-80 min-h-full bg-base-100">
           <!-- Sidebar content here -->
+          <%= render "layouts/theme_select" %>
           <% if !@online_chat_users.empty? %>
             <div class="divider font-black">Online</div>
           <% end %>
