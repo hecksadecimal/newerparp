@@ -25,6 +25,7 @@ By default, it renders:
   <%= csrf_meta_tags %>
   <%= csp_meta_tag if defined?(csp_meta_tag) %>
 
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 </head>
 <body>
@@ -32,10 +33,10 @@ By default, it renders:
 
   <%= render "icons" %>
 
-  <div class="app-container">
+  <div class="bg-base-100 text-base-content app-container">
     <%= render "navigation" -%>
 
-    <main class="main-content">
+    <main class="bg-base-100 text-base-content main-content">
       <%= render "flashes" -%>
       <%= yield %>
     </main>

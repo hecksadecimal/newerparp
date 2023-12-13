@@ -33,7 +33,24 @@ It renders the `_table` partial to display details about the resources.
 %>
 
 
-<section class="main-content__body main-content__body--flush">
+<section class="bg-base-200 text-base-content main-content__body main-content__body--flush">
+  <div class="p-4">
+    <h1>Online</h1>
+    <% @accounts_online.each_with_index do |account, index| %>
+      <% if accessible_action?(account, :show) -%>
+        <a href="<%= polymorphic_path([namespace, account]) -%>"
+          tabindex="-1"
+          class="action-show"
+          >
+          <%= account.username %>
+        </a>
+      <% else %>
+        <%= account.username %>
+      <% end -%>
+      <%= ", " unless index == @accounts_online.count - 1 %>
+    <% end %>
+  </div>
+  <div class="divider"></div> 
   <%= render(
     "collection",
     collection_presenter: page,

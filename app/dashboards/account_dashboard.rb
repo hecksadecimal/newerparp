@@ -88,6 +88,7 @@ class AccountDashboard < Administrate::BaseDashboard
     id
     username
     email
+    last_seen_at
     date_of_birth
     group
     admin_tier
@@ -117,7 +118,6 @@ class AccountDashboard < Administrate::BaseDashboard
     quirk_suffix
     regexes
     replacements
-    last_seen_at
     current_sign_in_at
     current_sign_in_ip
     last_sign_in_at
@@ -148,7 +148,9 @@ class AccountDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {}.freeze
+  COLLECTION_FILTERS = {
+    seen: -> (resources) { resources.where.not(last_seen_at: nil).order("last_seen_at ASC") }
+  }.freeze
 
   # Overwrite this method to customize how accounts are displayed
   # across all pages of the admin dashboard.

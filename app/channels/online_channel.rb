@@ -9,7 +9,6 @@ class OnlineChannel < ActionCable::Channel::Base
         account = Account.find(current_account.id)
         account.last_seen_at = DateTime.now
         account.save
-
     end
 
     def unsubscribed

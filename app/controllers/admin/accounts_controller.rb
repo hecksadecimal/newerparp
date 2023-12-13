@@ -1,6 +1,6 @@
 module Admin
   class AccountsController < Admin::ApplicationController
-    before_action :set_accounts_online, only: %i[ index ]
+    before_action :set_accounts_online, only: %i[ index show ]
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
@@ -48,7 +48,7 @@ module Admin
     private
       def set_accounts_online
         @account_ids_online = Kredis.unique_list "accounts_online"
-        @accounts_online = Account.find(@account_ids_online.elements)
+        @accounts_online = Account.where(id: @account_ids_online.elements)
       end
   end
 end
