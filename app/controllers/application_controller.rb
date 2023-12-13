@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
     before_action :set_unleash_context
     before_action :set_sentry_context
+    before_action :set_last_seen
 
     authorize :user, through: :current_account
 
@@ -17,6 +18,13 @@ class ApplicationController < ActionController::Base
     end
 
     private
+        def set_last_seen
+            if current_account
+                current_account.last_seen_at = DateTime.now
+                current_account.save
+            end
+        end
+
         def set_unleash_context
             @unleash_context = Unleash::Context.new(
                 session_id: session.id,

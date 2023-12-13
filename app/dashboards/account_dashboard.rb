@@ -66,6 +66,7 @@ class AccountDashboard < Administrate::BaseDashboard
     username: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    last_seen_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -77,7 +78,7 @@ class AccountDashboard < Administrate::BaseDashboard
     username
     email
     admin_tier
-    current_sign_in_at
+    last_seen_at
     current_sign_in_ip
   ].freeze
 
@@ -116,6 +117,7 @@ class AccountDashboard < Administrate::BaseDashboard
     quirk_suffix
     regexes
     replacements
+    last_seen_at
     current_sign_in_at
     current_sign_in_ip
     last_sign_in_at

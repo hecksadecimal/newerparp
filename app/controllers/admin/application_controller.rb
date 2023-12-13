@@ -7,6 +7,7 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_admin
+    before_action :set_last_seen
 
     def authenticate_admin
       authenticate_account!
@@ -21,5 +22,13 @@ module Admin
     # def records_per_page
     #   params[:per_page] || 20
     # end
+
+    private
+      def set_last_seen
+        if current_account
+          current_account.last_seen_at = DateTime.now
+          current_account.save
+        end
+      end
   end
 end
