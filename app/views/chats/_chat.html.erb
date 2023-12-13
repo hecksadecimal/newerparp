@@ -5,9 +5,9 @@
       <input id="chat-drawer" type="checkbox" class="drawer-toggle" /> 
       <div class="drawer-content max-h-full w-full h-full flex flex-col">
         <!-- Navbar -->
-        <div class="w-full h-10 navbar fixed inset-x-0 top-0 p-4 bg-base-300">
-          <div class="navbar-start flex-1 px-2 mx-2">
-            <button class="btn" onclick="chat_modal.showModal();modal_top.scrollIntoView(false);"><%= @chat.url %></button>
+        <div class="w-full h-10 navbar fixed inset-x-0 top-0 bg-base-300">
+          <div class="navbar-start md:flex-1">
+            <button class="btn btn-secondary fixed max-w-full	max-w-fit	z-10 inset-x-2 top-2" onclick="chat_modal.showModal();modal_top.scrollIntoView(false);"><%= @chat.url %></button>
             <dialog id="chat_modal" class="modal modal-bottom sm:modal-middle">
               <div class="modal-box">
                 <div id="modal_top"></div>
@@ -30,9 +30,9 @@
             </dialog>
           </div>
           <% if @chat.group_chat && @chat.group_chat.topic %>
-            <div class="navbar-center relative flex overflow-x-hidden hidden md:block">
-              <div class="py-12 animate-marquee whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
-              <div class="absolute top-0 py-12 animate-marquee2 whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
+            <div class="relative top-0 flex w-full overflow-x-hidden hidden md:flex">
+              <div class="py-12 animate-marquee w-full whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
+              <div class="absolute top-0 py-12 w-full animate-marquee2 whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
             </div>
           <% end %>
           <div class="flex-none navbar-end lg:hidden">
