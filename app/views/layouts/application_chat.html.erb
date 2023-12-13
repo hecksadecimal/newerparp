@@ -13,6 +13,7 @@
   </head>
 
   <body>
+    <%= turbo_stream_from "online_accounts", channel: OnlineChannel %>
     <div class="min-h-screen max-h-screen flex flex-col overflow-hidden">
       <%= yield %>
     </div>

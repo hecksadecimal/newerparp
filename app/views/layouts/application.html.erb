@@ -13,6 +13,7 @@
   </head>
 
   <body>
+    <%= turbo_stream_from "online_accounts", channel: OnlineChannel %>
     <div class="min-h-screen overflow-hidden">
       <div class="bg-base-100 bg-global bg-no-repeat bg-fixed bg-cover min-h-screen md-4 flex flex-col">
         <div class="w-full h-full flex flex-col">
