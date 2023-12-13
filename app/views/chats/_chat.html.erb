@@ -30,9 +30,9 @@
             </dialog>
           </div>
           <% if @chat.group_chat && @chat.group_chat.topic %>
-            <div class="relative top-0 flex w-fit overflow-x-hidden hidden md:flex">
-              <div class="py-12 animate-marquee w-fit whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
-              <div class="absolute top-0 py-12 w-fit animate-marquee2 whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
+            <div class="relative top-0 flex w-fit min-w-full overflow-x-hidden hidden md:flex">
+              <div class="py-12 animate-marquee w-fit min-w-full whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
+              <div class="absolute top-0 py-12 w-fit min-w-full animate-marquee2 whitespace-nowrap"><span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span></div>
             </div>
           <% end %>
           <div class="flex-none navbar-end lg:hidden">
