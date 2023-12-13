@@ -1,26 +1,71 @@
-<% if !log %>
-  <%= turbo_stream_from dom_id(@chat) %>
-
-  <div class="grid grid-cols-1 grid-rows-12 bg-base-100 text-base-content md:p-4 w-full h-full max-h-screen md:mb-4">
-    <div class="row-span-1 col-span-1 bg-base-300 p-2">
-      <%= render "layouts/theme_select" %>
+<%= turbo_frame_tag @chat, class: "w-full" do %>
+  <% if !log %>
+    <%= turbo_stream_from dom_id(@chat) %>
+    <div class="drawer drawer-end max-h-full w-full h-full">
+      <input id="chat-drawer" type="checkbox" class="drawer-toggle" /> 
+      <div class="drawer-content max-h-full w-full h-full flex flex-col">
+        <!-- Navbar -->
+        <div class="w-full h-10 navbar fixed inset-x-0 top-0 p-4 bg-base-300">
+          <div class="flex-1 px-2 mx-2"><%= @chat.url %></div>
+          <div class="flex-none navbar-end lg:hidden">
+            <label for="chat-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </label>
+          </div> 
+          <div class="flex-none hidden lg:block">
+            <ul class="menu menu-horizontal">
+              <!-- Navbar menu content here -->
+              <%= render "layouts/theme_select" %>
+            </ul>
+          </div>
+        </div>
+        <!-- Page content here -->
+        <div class="flex flex-row h-full w-full max-h-screen h-screen min-w-full bg-base-100 text-base-content md:p-4 md:mb-4 md:pr-0">
+          <ul id="messages" data-controller="autoscroll" class="max-h-full w-full overflow-y-auto mb-24 mt-16 pr-6">
+            <li><span class='grow text-gray-500 whitespace-pre-wrap'>~~~ <%= link_to log_chat_path(@chat), log_chat_path(@chat), target: "_blank" %> ~~~</span></li>
+            <% @messages.each do |message| %>
+              <%= render message %>
+            <% end %>
+          </ul>
+          <div class="hidden md:flex divider divider-horizontal"></div>
+          <div class="hidden md:block w-80 bg-base-100 pl-4 pt-12 min-h-full">
+            <% if !@online_chat_users.empty? %>
+              <div class="divider font-black">Online</div>
+            <% end %>
+            <% @online_chat_users.each do |chat_user| %>
+              <li>
+                <%= chat_user.name %>
+              </li>
+            <% end %>
+          </div>
+          <div class="fixed inset-x-0 bottom-0 p-4">
+            <%= render 'messages/form', message: Message.new(chat: @chat) %>
+          </div>
+        </div>
+      </div> 
+      <div class="drawer-side overflow-hidden">
+        <label for="chat-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
+        <ul class="menu p-4 w-80 min-h-full bg-base-100">
+          <!-- Sidebar content here -->
+          <% if !@online_chat_users.empty? %>
+            <div class="divider font-black">Online</div>
+          <% end %>
+          <% @online_chat_users.each do |chat_user| %>
+            <li>
+              <%= chat_user.name %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-    <ul id="messages" data-controller="autoscroll" class="row-span-10 col-span-1 overflow-y-auto">
-      <% @messages.each do |message| %>
-        <%= render message %>
-      <% end %>
-    </ul>
-    <div class="row-span-1 col-span-1 w-full pt-2 pb-2">
-      <%= render 'messages/form', message: Message.new(chat: @chat) %>
+  <% else %>
+    <div class="bg-base-100 text-base-content w-full h-full p-4">
+      <ul id="messages">
+        <% @messages.each do |message| %>
+          <%= render message %>
+        <% end %>
+      </ul>
     </div>
-  </div>
-<% else %>
-  <div class="bg-base-100 text-base-content w-full h-full p-4">
-    <ul id="messages">
-      <% @messages.each do |message| %>
-        <%= render message %>
-      <% end %>
-    </ul>
-  </div>
+  <% end %>
 <% end %>
 

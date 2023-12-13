@@ -2,6 +2,7 @@ class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show log edit update destroy ]
   before_action :authenticate_account!, only: %i[ visited owned searched show subscribed new edit create update destroy ]
   before_action :add_sentry_context, only: %i[ show log edit create update destroy ]
+  before_action :set_chat_users_online, only: %i[ show ]
 
   rescue_from Pagy::OverflowError, with: :redirect_to_last_page
 
@@ -125,6 +126,11 @@ class ChatsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:url, :type, :last_message)
+    end
+
+    def set_chat_users_online
+      online_chat_users = Kredis.unique_list("chat_#{@chat.id}_accounts_online")
+      @online_chat_users = ChatUser.where(chat_id: @chat.id, user_id: online_chat_users.elements)
     end
 
     def pagy_calendar_period(messages)

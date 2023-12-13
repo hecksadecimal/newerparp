@@ -1,9 +1,9 @@
-<%= turbo_stream_from dom_id(@chat)+"_online_accounts", channel: OnlineChatChannel %>
+<%= turbo_stream_from dom_id(@chat)+"_accounts_online", channel: OnlineChatChannel %>
 
 <div class="bg-base-100 bg-global bg-no-repeat bg-fixed bg-cover grow md-4 flex flex-row">
   <div class="flex flex-col space-y-4 grow">
     <div class="opacity-90 text-base-content md:p-4 flex flex-row grow">
-        <%= render @chat, log: false %>
+      <%= render @chat, log: false %>
     </div>
   </div>
 </div>
