@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 299 63" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .cls-1{
+          fill: var(--fallback-b3,oklch(var(--a)/var(--tw-bg-opacity)));
+      }
+    </style>
+  </defs>
+  <path class="cls-1" style="stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;opacity:1" d="M 8 11 L 8 16 L 13 16 L 13 47 L 8 47 L 8 52 L 28 52 L 28 47 L 23 47 L 23 31 L 28 31 L 28 16 L 23 16 L 23 11 L 8 11 z M 28 31 L 28 42 L 33 42 L 33 31 L 28 31 z M 33 31 L 39 31 L 39 47 L 33 47 L 33 52 L 54 52 L 54 47 L 49 47 L 49 16 L 54 16 L 54 11 L 39 11 L 39 16 L 33 16 L 33 31 z M 64 11 L 64 16 L 59 16 L 59 26 L 64 26 L 64 31 L 69 31 L 69 37 L 79 37 L 79 47 L 69 47 L 69 42 L 59 42 L 59 52 L 85 52 L 85 47 L 90 47 L 90 37 L 85 37 L 85 31 L 79 31 L 79 26 L 69 26 L 69 16 L 79 16 L 79 21 L 90 21 L 90 11 L 64 11 z M 95 11 L 95 16 L 100 16 L 100 47 L 95 47 L 95 52 L 120 52 L 120 47 L 110 47 L 110 37 L 125 37 L 125 31 L 131 31 L 131 16 L 125 16 L 125 11 L 95 11 z M 135 11 L 135 16 L 146 16 L 146 21 L 140 21 L 140 37 L 135 37 L 135 47 L 130 47 L 130 52 L 151 52 L 151 47 L 146 47 L 146 42 L 161 42 L 161 47 L 156 47 L 156 52 L 192 52 L 192 47 L 186 47 L 186 37 L 192 37 L 192 42 L 197 42 L 197 47 L 202 47 L 202 52 L 238 52 L 238 47 L 227 47 L 227 37 L 243 37 L 243 31 L 248 31 L 248 16 L 243 16 L 243 11 L 212 11 L 212 16 L 217 16 L 217 47 L 207 47 L 207 42 L 202 42 L 202 31 L 207 31 L 207 16 L 202 16 L 202 11 L 171 11 L 171 16 L 176 16 L 176 47 L 171 47 L 171 37 L 166 37 L 166 21 L 161 21 L 161 11 L 135 11 z M 110 16 L 120 16 L 120 31 L 110 31 L 110 16 z M 186 16 L 197 16 L 197 31 L 186 31 L 186 16 z M 227 16 L 238 16 L 238 31 L 227 31 L 227 16 z M 151 21 L 156 21 L 156 37 L 151 37 L 151 21 z " id="path2997"/>
+  <path class="cls-1" style="stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;opacity:1" d="M 262 40 L 262 42 L 264 42 L 264 40 L 262 40 Z M 264 42 L 264 44 L 268 44 L 268 42 L 264 42 Z M 268 44 L 268 46 L 272 46 L 272 44 L 268 44 Z M 268 46 L 264 46 L 264 48 L 268 48 L 268 46 Z M 264 48 L 262 48 L 262 50 L 264 50 L 264 48 Z" id="path3779"/>
+  <path class="cls-1" style="stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" d="M 287.219 34 L 287.219 56 L 301.219 56 L 301.219 34 L 287.219 34 Z" id="path3795">
+    <animate id="frame1" attributeName="display" values="inline;none;none" keyTimes="0;0.5;1" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+  </path>
+</svg>

@@ -1,7 +1,8 @@
 <div class="navbar bg-base-300">
   <div class="flex-1 px-2 lg:flex-none">
     <%= link_to root_path, class: "w-64" do %>
-        <%= inline_svg_tag "horizontal_full_color.svg" %>
+        <%= inline_svg_tag "msparp_logo.svg", class: "hidden md:block" %>
+        <%= inline_svg_tag "msparp_logo_mini.svg", class: "md:hidden" %>
     <% end %>
   </div> 
   <div class="flex justify-end flex-1 px-2">
