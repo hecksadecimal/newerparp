@@ -97,7 +97,7 @@ export default class extends Controller {
   }
 
   computeColours() {
-    const minContrast = 5.0
+    const minContrast = 3.0
     //this.resetColours()
     let elems = this.element.querySelectorAll("*")
 
@@ -108,33 +108,44 @@ export default class extends Controller {
       if(el.classList.contains("spoiler")) {
         continue
       }
-      this.resetColours(el)
       Promise.resolve()
       .then(() => this.resetColours(el))
       .then(() => delay(250))
       .then(() => {
         let color = cssColorToRGBA(getInheritedTextColor(el))
         let ch = chroma.rgb(color[0], color[1], color[2], color[3])
+        let storageKey = `${bgCh.hex()}_${ch.hex()}_${minContrast}`
+
+        if (window.localStorage) {
+          let val = window.localStorage.getItem(storageKey)
+          if (window.localStorage.getItem(storageKey) !== null) {
+            el.style.color = chroma(val).hex()
+            return
+          }
+        }
+
         let contrast = chroma.contrast(ch, bgCh)
         if (contrast < minContrast) {
-          let palette = chroma.scale([ch.darken(3), ch, ch.brighten(2.5)]).gamma(0.25).colors(12)
-          palette.sort((a, b) => {
+          let palette = chroma.scale([ch.darken(3), ch, ch.brighten(3)]).gamma(0.5).colors(100)
+          palette = palette.filter((v) => {
+            let cv = chroma(v)
+            return chroma.contrast(cv, bgCh) >= minContrast
+          }).sort((a, b) => {
             let ca = chroma(a)
             let cb = chroma(b)
             let diff = chroma.deltaE(ca, ch) - chroma.deltaE(cb, ch)
             return diff
           })
-  
-          let bestCh = ch
-          for (const value of palette) {
-            let newCh = chroma(value)
-            let newContrast = chroma.contrast(newCh, bgCh)
-            if (newContrast >= minContrast) {
-              bestCh = newCh
-              break
+
+          if (palette.length) {
+            let newColour = chroma(palette.shift()).hex()
+            el.style.color = newColour
+            if (window.localStorage) {
+              window.localStorage.setItem(storageKey, newColour)
             }
+          } else {
+            console.log("WARN: Colour correction failure")
           }
-          el.style.color = bestCh.css()
         }
       });
     }
