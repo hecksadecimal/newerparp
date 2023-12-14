@@ -1,9 +1,9 @@
 <%= turbo_frame_tag @chat, class: "w-screen h-screen" do %>
   <% if !log %>
     <%= turbo_stream_from dom_id(@chat) %>
-    <div class="flex flex-row-reverse h-screen overflow-hidden">
+    <div class="flex md:flex-row-reverse h-screen overflow-hidden">
         <!-- Sidebar -->
-        <div class="w-1/4 bg-base-100 border-r border-neutral">
+        <div class="w-1/4 bg-base-100 border-r border-neutral hidden md:block">
           <!-- Sidebar Header -->
           <header class="p-4 border-b border-neutral flex justify-between items-center bg-base-200 text-base-content">
             <h1 class="text-2xl font-semibold"></h1>
@@ -26,7 +26,7 @@
           </header>
         
           <!-- User List -->
-          <div class="overflow-y-auto h-screen p-3 mb-9 pb-20">
+          <div class="overflow-y-auto h-screen p-3 mb-9 pb-20 hidden md:block">
             <%= render "layouts/theme_select" %>
             <% if !@online_chat_users.empty? %>
               <div class="divider font-black">Online</div>
@@ -46,12 +46,15 @@
         </div>
         
         <!-- Main Chat Area -->
-        <div class="flex-1 border-r border-neutral">
+        <div class="flex-1 md:border-r border-neutral">
             <!-- Chat Header -->
             <header class="bg-base-100 p-4 text-base-content">
               <button class="btn btn-secondary" onclick="chat_modal.showModal();modal_top.scrollIntoView(false);"><%= @chat.url %></button>
-              <dialog id="chat_modal" class="modal modal-bottom md:w-4/5 sm:modal-middle">
+              <dialog id="chat_modal" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box">
+                  <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                  </form>
                   <div id="modal_top"></div>
                   <% if @chat.group_chat && @chat.group_chat.topic %>
                     <div class="divider">Topic</div>
@@ -86,7 +89,7 @@
             </div>
             
             <!-- Chat Input -->
-            <footer class="bg-base-100 border-t border-neutral p-4 absolute bottom-0 w-3/4">
+            <footer class="bg-base-100 border-t border-neutral p-4 absolute bottom-0 w-full md:w-3/4">
                 <div class="flex items-center">
                     <%= render 'messages/form', message: Message.new(chat: @chat) %>
                 </div>
