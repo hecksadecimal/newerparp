@@ -28,6 +28,16 @@
           <!-- User List -->
           <div class="overflow-y-auto h-screen p-3 mb-9 pb-20 hidden md:block">
             <%= render "layouts/theme_select" %>
+            <div data-controller="contrastslider">
+              <label>
+                <div class="label">
+                  <span class="label-text">Text Contrast Correction</span>
+                  <span data-contrastslider-target="label" class="label-text-alt">20%</span>
+                </div>
+                <input data-contrastslider-target="input" type="range" min="0" max="150" value="30" step="1" class="range" />
+              </label>
+              <input id="contrastslider_output" data-contrastslider-target="output" type="hidden">
+            </div>
             <% if !@online_chat_users.empty? %>
               <div class="divider font-black">Online</div>
             <% end %>

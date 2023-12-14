@@ -13,6 +13,9 @@ application.register("autoscroll", AutoscrollController)
 import ColouradjustController from "./colouradjust_controller"
 application.register("colouradjust", ColouradjustController)
 
+import ContrastsliderController from "./contrastslider_controller"
+application.register("contrastslider", ContrastsliderController)
+
 import DatepickerController from "./datepicker_controller"
 application.register("datepicker", DatepickerController)
 

@@ -64,6 +64,15 @@ export default class extends Controller {
     };
 
     let observer = new MutationObserver(callback);
+    let contrastSlider = document.getElementById("contrastslider_output")
+
+    if (contrastSlider) {
+      console.log("colouradjust: Attaching to slider")
+      contrastSlider.addEventListener("change", () => {
+        console.log("triggering refresh")
+        target.computeColours()
+      })
+    }
 
     function callback (mutations) {
       window.setTimeout(() => {
@@ -97,7 +106,13 @@ export default class extends Controller {
   }
 
   computeColours() {
-    const minContrast = 3.0
+    var minContrast = 3.0
+    if (window.localStorage) {
+      var val = window.localStorage.getItem("minimum_contrast")
+      if (val != null) {
+        minContrast = val
+      }
+    }
     //this.resetColours()
     let elems = this.element.querySelectorAll("*")
 
@@ -126,7 +141,7 @@ export default class extends Controller {
 
         let contrast = chroma.contrast(ch, bgCh)
         if (contrast < minContrast) {
-          let palette = chroma.scale([ch.darken(3), ch, ch.brighten(3)]).gamma(0.5).colors(100)
+          let palette = chroma.scale(['black', ch.darken(3), ch, ch.brighten(3), 'white']).gamma(0.5).colors(100)
           palette = palette.filter((v) => {
             let cv = chroma(v)
             return chroma.contrast(cv, bgCh) >= minContrast
