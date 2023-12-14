@@ -1,109 +1,115 @@
-<%= turbo_frame_tag @chat, class: "w-full" do %>
+<%= turbo_frame_tag @chat, class: "w-screen h-screen" do %>
   <% if !log %>
     <%= turbo_stream_from dom_id(@chat) %>
-    <div class="drawer drawer-end max-h-full w-full h-full">
-      <input id="chat-drawer" type="checkbox" class="drawer-toggle" /> 
-      <div class="drawer-content max-h-full w-full h-full flex flex-col">
-        <!-- Navbar -->
-        <div class="w-full h-10 navbar fixed inset-x-0 top-0 bg-base-300">
-          <div class="navbar-start md:flex-1">
-            <button class="btn btn-secondary fixed max-w-fit z-10 inset-x-2 top-2" onclick="chat_modal.showModal();modal_top.scrollIntoView(false);"><%= @chat.url %></button>
-            <dialog id="chat_modal" class="modal modal-bottom sm:modal-middle">
-              <div class="modal-box">
-                <div id="modal_top"></div>
-                <% if @chat.group_chat && @chat.group_chat.topic %>
-                  <div class="divider">Topic</div>
-                  <div class="prose">
-                    <%== @chat.group_chat.topic.bbcode_to_html %>
-                  </div>
-                <% end %>
-                <% if @chat.group_chat && @chat.group_chat.description %>
-                  <div class="divider">Description</div>
-                  <div class="prose">
-                    <%== chat.group_chat.description.bbcode_to_html %>
-                  </div>
-                <% end %>
-              </div>
-              <form method="dialog" class="modal-backdrop">
-                <button>close</button>
-              </form>
-            </dialog>
-          </div>
-          <% if @chat.group_chat && @chat.group_chat.topic %>
-            <div class="relative top-0 flex w-fit min-w-full overflow-x-hidden hidden md:flex">
-              <div class="py-12 animate-marquee w-fit whitespace-nowrap">
-                <span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span>
-                <span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span>
-                <span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span>
-
-              </div>
-              <div class="absolute top-0 py-12 w-fit animate-marquee2 whitespace-nowrap">
-                <span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span>
-                <span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span>
-                <span class="mx-4"><%== @chat.group_chat.topic.bbcode_to_html %></span>
+    <div class="flex flex-row-reverse h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="w-1/4 bg-base-100 border-r border-neutral">
+          <!-- Sidebar Header -->
+          <header class="p-4 border-b border-neutral flex justify-between items-center bg-base-200 text-base-content">
+            <h1 class="text-2xl font-semibold"></h1>
+            <div class="relative">
+              <button id="menuButton" class="focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-100" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                  <path d="M2 10a2 2 0 012-2h12a2 2 0 012 2 2 2 0 01-2 2H4a2 2 0 01-2-2z" />
+                </svg>
+              </button>
+              <!-- Menu Dropdown -->
+              <div id="menuDropdown" class="absolute right-0 mt-2 w-48 bg-base-100 border border-neutral rounded-md shadow-lg hidden">
+                <ul class="py-2 px-3">
+                  <li><a href="#" class="block px-4 py-2 text-neutral-content hover:text-gray-400">Option 1</a></li>
+                  <li><a href="#" class="block px-4 py-2 text-neutral-content hover:text-gray-400">Option 2</a></li>
+                  <!-- Add more menu options here -->
+                </ul>
               </div>
             </div>
-          <% end %>
-          <div class="flex-none navbar-end lg:hidden">
-            <label for="chat-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </label>
-          </div> 
-          <div class="relative top-0 right-0 flex-none hidden lg:block">
-            <ul class="menu menu-horizontal">
-              <!-- Navbar menu content here -->
-            </ul>
-          </div>
-        </div>
-        <!-- Page content here -->
-        <div class="flex flex-row h-full w-full max-h-screen h-screen min-w-full bg-base-100 text-base-content md:p-4 md:mb-4 md:pr-0">
-          <ul id="messages" data-controller="autoscroll" class="max-h-full w-full overflow-y-auto mb-24 mt-16 pr-6">
-            <li><span class='grow text-gray-500 whitespace-pre-wrap'>~~~ <%= link_to log_chat_path(@chat), log_chat_path(@chat), target: "_blank" %> ~~~</span></li>
-            <% @messages.each do |message| %>
-              <%= render message %>
-            <% end %>
-          </ul>
-          <div class="hidden md:flex divider divider-horizontal"></div>
-          <div class="hidden md:block w-80 bg-base-100 pl-4 pt-12 min-h-full">
+          </header>
+        
+          <!-- User List -->
+          <div class="overflow-y-auto h-screen p-3 mb-9 pb-20">
             <%= render "layouts/theme_select" %>
             <% if !@online_chat_users.empty? %>
               <div class="divider font-black">Online</div>
             <% end %>
             <% @online_chat_users.each do |chat_user| %>
-              <li>
-                <%= chat_user.name %>
-              </li>
+              <div class="flex items-center mb-4 cursor-pointer hover:bg-base-200 p-2 rounded-md">
+                <div class="w-12 h-12 bg-base-300 rounded-full mr-3">
+                  <img src="<%= "https://placehold.co/200x/666666/#{chat_user.color}.svg?text=#{chat_user.acronym}&font=Lato" %>" alt="User Avatar" class="w-12 h-12 rounded-full">
+                </div>
+                <div class="flex-1">
+                  <h2 class="text-lg font-semibold"><%= chat_user.name %></h2>
+                  <p class="text-base-content"><%= chat_user.group %></p>
+                </div>
+              </div>
             <% end %>
           </div>
-          <div class="fixed inset-x-0 bottom-0 p-4">
-            <%= render 'messages/form', message: Message.new(chat: @chat) %>
-          </div>
         </div>
-      </div> 
-      <div class="drawer-side overflow-hidden">
-        <label for="chat-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
-        <ul class="menu p-4 w-80 min-h-full bg-base-100">
-          <!-- Sidebar content here -->
-          <%= render "layouts/theme_select" %>
-          <% if !@online_chat_users.empty? %>
-            <div class="divider font-black">Online</div>
-          <% end %>
-          <% @online_chat_users.each do |chat_user| %>
-            <li>
-              <%= chat_user.name %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+        
+        <!-- Main Chat Area -->
+        <div class="flex-1 border-r border-neutral">
+            <!-- Chat Header -->
+            <header class="bg-base-100 p-4 text-base-content">
+              <button class="btn btn-secondary" onclick="chat_modal.showModal();modal_top.scrollIntoView(false);"><%= @chat.url %></button>
+              <dialog id="chat_modal" class="modal modal-bottom md:w-4/5 sm:modal-middle">
+                <div class="modal-box">
+                  <div id="modal_top"></div>
+                  <% if @chat.group_chat && @chat.group_chat.topic %>
+                    <div class="divider">Topic</div>
+                    <div class="prose">
+                      <%== @chat.group_chat.topic.bbcode_to_html %>
+                    </div>
+                  <% end %>
+                  <% if @chat.group_chat && @chat.group_chat.description %>
+                    <div class="divider">Description</div>
+                    <div class="prose">
+                      <%== chat.group_chat.description.bbcode_to_html %>
+                    </div>
+                  <% end %>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                  <button>close</button>
+                </form>
+              </dialog>
+            </header>
+            
+            <!-- Chat Messages -->
+            <div id="messages" data-controller="autoscroll" class="h-screen flex flex-col overflow-y-auto p-4 pb-40">
+              <div class="flex w-full cursor-pointer">
+                <div class="flex bg-base-100 rounded-lg my-1 p-3 gap-3">
+                  <p class="text-gray-500"><span class='grow whitespace-pre-wrap'>~~~ <%= link_to log_chat_path(@chat), log_chat_path(@chat), target: "_blank" %> ~~~</span></p>
+                </div>
+              </div>
+              <% @messages.each do |message| %>
+                <!-- Incoming Message -->
+                <%= render message %>
+              <% end %>
+            </div>
+            
+            <!-- Chat Input -->
+            <footer class="bg-base-100 border-t border-neutral p-4 absolute bottom-0 w-3/4">
+                <div class="flex items-center">
+                    <%= render 'messages/form', message: Message.new(chat: @chat) %>
+                </div>
+            </footer>
+        </div>
     </div>
   <% else %>
-    <div class="bg-base-100 text-base-content w-full h-full p-4">
-      <ul id="messages">
-        <% @messages.each do |message| %>
-          <%= render message %>
-        <% end %>
-      </ul>
+    <div class="flex "> 
+        <!-- Main Chat Area -->
+        <div class="">
+            <!-- Chat Messages -->
+            <div id="messages" data-controller="autoscroll" class="flex flex-col  overflow-y-auto p-4">
+              <div class="flex  w-full cursor-pointer">
+                <div class="flex bg-base-100 rounded-lg my-1 p-3 gap-3">
+                  <p data-controller="colouradjust" class="text-gray-500"><span class='grow whitespace-pre-wrap'>~~~ <%= link_to chat_path(@chat), chat_path(@chat), target: "_blank" %> ~~~</span></p>
+                </div>
+              </div>
+              <% @messages.each do |message| %>
+                <!-- Incoming Message -->
+                <%= render message %>
+              <% end %>
+            </div>
+        </div>
     </div>
   <% end %>
 <% end %>
-

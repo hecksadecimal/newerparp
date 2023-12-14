@@ -43,6 +43,15 @@ html {
 * I just changed the code a bit to not need jquery.
 */
 
+[data-controller~="colouradjust"] * {
+	-webkit-transition: background-color 250ms ease;
+    -ms-transition: background-color 250ms ease;
+    transition: background-color 250ms ease;
+	-webkit-transition: color 250ms ease;
+    -ms-transition: color 250ms ease;
+    transition: color 250ms ease;
+}
+
 .daterangepicker {
 	position: absolute;
 	color: inherit;

@@ -3,6 +3,12 @@ import chroma from "chroma-js"
 
 // Connects to data-controller="colouradjust"
 
+function delay(duration) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, duration);
+  });
+}
+
 function cssColorToRGBA(string) {
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = 1;
@@ -60,10 +66,15 @@ export default class extends Controller {
     let observer = new MutationObserver(callback);
 
     function callback (mutations) {
-      target.computeColours()
+      window.setTimeout(() => {
+        target.computeColours()
+      }, 250)
     }
-    this.saveColours()
-    this.computeColours()
+
+    window.setTimeout(() => {
+      target.saveColours()
+      target.computeColours()
+    }, 250)
 
     observer.observe(document.documentElement, options);
   }
@@ -77,14 +88,11 @@ export default class extends Controller {
     }
   }
 
-  resetColours() {
-    let elems = this.element.querySelectorAll("*")
-    for (let el of elems) {
-      if (el.originalcolor) {
-        el.style.color = el.originalcolor
-      } else {
-        el.style.color = null
-      }
+  resetColours(el) {
+    if (el.originalcolor) {
+      el.style.color = el.originalcolor
+    } else {
+      el.style.color = null
     }
   }
 
@@ -100,35 +108,35 @@ export default class extends Controller {
       if(el.classList.contains("spoiler")) {
         continue
       }
-      if (el.originalcolor) {
-        el.style.color = el.originalcolor
-      } else {
-        el.style.color = null
-      }
-
-      let color = cssColorToRGBA(getInheritedTextColor(el))
-      let ch = chroma.rgb(color[0], color[1], color[2], color[3])
-      let contrast = chroma.contrast(ch, bgCh)
-      if (contrast < minContrast) {
-        let palette = chroma.scale([ch.darken(3), ch, ch.brighten(2.5)]).gamma(0.25).colors(12)
-        palette.sort((a, b) => {
-          let ca = chroma(a)
-          let cb = chroma(b)
-          let diff = chroma.deltaE(ca, ch) - chroma.deltaE(cb, ch)
-          return diff
-        })
-
-        let bestCh = ch
-        for (const value of palette) {
-          let newCh = chroma(value)
-          let newContrast = chroma.contrast(newCh, bgCh)
-          if (newContrast >= minContrast) {
-            bestCh = newCh
-            break
+      this.resetColours(el)
+      Promise.resolve()
+      .then(() => this.resetColours(el))
+      .then(() => delay(250))
+      .then(() => {
+        let color = cssColorToRGBA(getInheritedTextColor(el))
+        let ch = chroma.rgb(color[0], color[1], color[2], color[3])
+        let contrast = chroma.contrast(ch, bgCh)
+        if (contrast < minContrast) {
+          let palette = chroma.scale([ch.darken(3), ch, ch.brighten(2.5)]).gamma(0.25).colors(12)
+          palette.sort((a, b) => {
+            let ca = chroma(a)
+            let cb = chroma(b)
+            let diff = chroma.deltaE(ca, ch) - chroma.deltaE(cb, ch)
+            return diff
+          })
+  
+          let bestCh = ch
+          for (const value of palette) {
+            let newCh = chroma(value)
+            let newContrast = chroma.contrast(newCh, bgCh)
+            if (newContrast >= minContrast) {
+              bestCh = newCh
+              break
+            }
           }
+          el.style.color = bestCh.css()
         }
-        el.style.color = bestCh.css()
-      }
+      });
     }
   }
 }

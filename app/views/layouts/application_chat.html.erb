@@ -14,7 +14,7 @@
 
   <body>
     <%= turbo_stream_from "online_accounts", channel: OnlineChannel %>
-    <div class="max-h-screen h-full overflow-hidden flex flex-col">
+    <div>
       <%= yield %>
     </div>
   </body>

@@ -1,7 +1,15 @@
-<li data-controller='colouradjust' id="<%= dom_id message %>" class="flex flex-row">
-    <% if message.type == "ic" || message.type == "ooc" %>
-        <%== "<span class='grow whitespace-pre-wrap#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-gray-500'"}>#{!message.acronym.empty? ? message.acronym + ": " : ""}#{message.text.bbcode_to_html}</span>" %>
-    <% else %>
-        <%== "<span class='grow text-gray-500 whitespace-pre-wrap'>#{message.text}</span>" %>
-    <% end %>
-</li>
+<div class="flex w-full cursor-pointer">
+  <% if message.type == "ic" || message.type == "ooc" || message.type == "me"%>
+    <div class="flex rounded-lg px-3 gap-3">
+      <p data-controller="colouradjust" class="text-base-content">
+        <%== "<span id='#{dom_id message}' class='grow whitespace-pre-wrap#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-gray-500'"}>#{!message.acronym.empty? ? message.acronym + ": " : ""}#{message.text.bbcode_to_html}</span>" %>
+      </p>
+    </div>
+  <% else %>
+    <div class="flex bg-base-100 rounded-lg my-1 p-3 gap-3">
+      <p data-controller="colouradjust" class="text-gray-500">
+        <%== "<span id='#{dom_id message}' class='grow text-gray-500 whitespace-pre-wrap'>#{message.text}</span>" %>
+      </p>
+    </div>
+  <% end %>
+</div>
