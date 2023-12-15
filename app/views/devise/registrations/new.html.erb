@@ -1,6 +1,6 @@
 <div class="flex flex-col items-center h-screen overflow-hidden pt-8">
     <div class="w-full p-6 bg-base-200 border-t-4 border-accent rounded-md shadow-md border-top lg:max-w-lg">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "space-y-4") do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "space-y-4") do |f| %>
             <div class="field">
               <label class="label">
                     <span class="text-base label-text">Username</span>
