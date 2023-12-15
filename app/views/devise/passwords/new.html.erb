@@ -1,6 +1,9 @@
 <div class="flex flex-col items-center h-screen overflow-hidden pt-8">
     <div class="w-full p-6 bg-base-200 border-t-4 border-accent rounded-md shadow-md border-top lg:max-w-lg">
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, class: "space-y-4") do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+                      
+            
             <div class="field pb-2">
               <label class="label">
                     <span class="text-base label-text">Email</span>

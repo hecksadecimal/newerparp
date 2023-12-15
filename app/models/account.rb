@@ -7,6 +7,9 @@ class Account < ApplicationRecord
 
   before_validation :set_defaults
   
+  validates_uniqueness_of :email
+  validates_uniqueness_of :username
+
   belongs_to :admin_tier, optional: true
   has_many :permissions, through: :admin_tier
   has_one :beta_code
