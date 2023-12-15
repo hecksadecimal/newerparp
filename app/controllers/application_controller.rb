@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
     before_action :set_unleash_context
     before_action :set_sentry_context
     before_action :set_last_seen
+    before_action :configure_permitted_parameters, if: :devise_controller?
+
 
     authorize :user, through: :current_account
 
@@ -18,6 +20,10 @@ class ApplicationController < ActionController::Base
     end
 
     private
+        def configure_permitted_parameters
+            devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email])
+        end
+
         def set_last_seen
             if current_account
                 current_account.last_seen_at = DateTime.now

@@ -4,6 +4,8 @@ class Account < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :trackable
+
+  before_validation :set_defaults
   
   belongs_to :admin_tier, optional: true
   has_many :permissions, through: :admin_tier
@@ -32,4 +34,9 @@ class Account < ApplicationRecord
   def admin?
     !admin_tier.nil?
   end
+
+  private
+    def set_defaults
+      group = "active" if group.nil?
+    end
 end
