@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'b7ca1ba662e73ad42a6c7bfb355a8cece7a4d5943b2c37d60e840a3b7b4fa0a3c1ff908f1f685f9cd21d98217524d6c2d864cdee89c84462dce6a74f5aba15dd'
+  config.secret_key = ENV.fetch("SECRET_KEY_BASE")
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -58,7 +58,7 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email]
+  config.case_insensitive_keys = [:email, :username]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
