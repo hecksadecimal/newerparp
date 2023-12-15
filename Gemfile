@@ -91,3 +91,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "inline_svg", "~> 1.9"
+
+gem "resend", "~> 0.8.1"
