@@ -1,16 +1,19 @@
-<h2>Resend unlock instructions</h2>
+<div class="flex flex-col items-center h-screen overflow-hidden pt-8">
+    <div class="w-full p-6 bg-base-200 border-t-4 border-accent rounded-md shadow-md border-top lg:max-w-lg">
+        <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }, class: "space-y-4") do |f| %>
+            <div class="field pb-2">
+              <label class="label">
+                    <span class="text-base label-text">Email</span>
+              </label>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full input input-bordered bg-base-300 focus:bg-base-300" %>
+            </div>
 
-<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Resend unlock instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+            <div>
+                <%= f.submit "Send Unlock Instructions", class: "btn pt-2 btn-block btn-accent" %>
+            </div>
+        <% end %>
+        <div class="pt-8 flex flex-row justify-between place-content-between text-center">
+          <%= render "devise/shared/links" %>
+        </div>
+    </div>
+</div>
