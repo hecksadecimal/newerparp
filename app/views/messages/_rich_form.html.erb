@@ -1,0 +1,34 @@
+<%= turbo_frame_tag dom_id(message.chat, :input), class: "w-full" do %>
+  <%= form_with(model: message, class: "w-full flex space-x-2") do |form| %>
+    <% if message.chat.accounts.include?(current_account) %>
+        <div class="w-full">
+            <%= form.hidden_field :chat_id, value: message.chat_id %>
+            <%= form.hidden_field :content, id: form.field_id(:content), value: form.object.content.try(:to_trix_html) || form.object.content %>
+            <rhino-editor
+                input="<%= form.field_id(:content) %>"
+                data-blob-url-template="<%= rails_service_blob_url(":signed_id", ":filename") %>"
+                data-direct-upload-url="<%= rails_direct_uploads_url %>"
+            ></rhino-editor>
+            <% if message.errors.size > 0 %>
+                <div class="md:hidden tooltip tooltip-top tooltip-error w-full" data-tip="<%= message.errors.full_messages.to_sentence %>">
+                    <%= form.submit "Send", class: "md:hidden w-full self-end h-6 btn btn-error pt-1" %>
+                </div>
+            <% else %>
+                <%= form.submit "Send", class: "md:hidden w-full self-end h-6 btn btn-primary pt-1" %>
+            <% end %>
+        </div>
+        <% if message.errors.size > 0 %>
+            <div class="tooltip tooltip-top tooltip-error self-end" data-tip="<%= message.errors.full_messages.to_sentence %>">
+                <%= form.submit "Send", class: "hidden md:block self-end h-20 btn btn-error pt-1" %>
+            </div>
+        <% else %>
+            <%= form.submit "Send", class: "hidden md:block self-end h-20 btn btn-primary pt-1" %>
+        <% end %>
+      <% else %>
+        <div class="w-full">
+            <input type="text" disabled placeholder="You have not joined this chat. Input disabled." class="min-w-full join-item bg-base-100 prose input input-disbled input-bordered input-accent">        
+        </div>
+        <%= form.submit "Send", disabled: true, class: "self-end h-20 btn btn-disabled pt-1" %>
+      <% end %>
+  <% end %>
+<% end %>
