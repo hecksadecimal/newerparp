@@ -40,13 +40,18 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("input_chat_#{@message.chat_id}", partial: "messages/form",
+          render turbo_stream: turbo_stream.replace("input_chat_#{@message.chat_id}", partial: "messages/rich_form",
             locals: {message: Message.new(chat_id: @message.chat_id)}
           )
         end
         format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
       else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("input_chat_#{@message.chat_id}", partial: "messages/rich_form",
+            locals: {message: @message}
+          )
+        end
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
@@ -87,6 +92,6 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:chat_id, :text)
+      params.require(:message).permit(:chat_id, :text, :content)
     end
 end

@@ -1,14 +1,14 @@
 <%= turbo_frame_tag dom_id(message.chat, :input), class: "w-full" do %>
+  <%= content_for :page_header do %>
+    <meta name="turbo-cache-control" content="no-cache">
+    <meta name="turbo-visit-control" content="reload">
+    <%= tinymce_assets %>
+  <% end %>
   <%= form_with(model: message, class: "w-full flex space-x-2") do |form| %>
     <% if message.chat.accounts.include?(current_account) %>
         <div class="w-full">
             <%= form.hidden_field :chat_id, value: message.chat_id %>
-            <%= form.hidden_field :content, id: form.field_id(:content), value: form.object.content.try(:to_trix_html) || form.object.content %>
-            <rhino-editor
-                input="<%= form.field_id(:content) %>"
-                data-blob-url-template="<%= rails_service_blob_url(":signed_id", ":filename") %>"
-                data-direct-upload-url="<%= rails_direct_uploads_url %>"
-            ></rhino-editor>
+            <%= form.text_area :content, class: "tinymce w-full", rows: 6, cols: 120 %>
             <% if message.errors.size > 0 %>
                 <div class="md:hidden tooltip tooltip-top tooltip-error w-full" data-tip="<%= message.errors.full_messages.to_sentence %>">
                     <%= form.submit "Send", class: "md:hidden w-full self-end h-6 btn btn-error pt-1" %>
@@ -31,4 +31,6 @@
         <%= form.submit "Send", disabled: true, class: "self-end h-20 btn btn-disabled pt-1" %>
       <% end %>
   <% end %>
+  <%= tinymce convert_urls: true, uploadimage: true %>
+
 <% end %>

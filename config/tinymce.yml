@@ -1,0 +1,22 @@
+menubar: false
+toolbar:
+  - 'undo redo | bold italic | forecolor | image link | fullscreen'
+plugins:
+  - table
+  - searchreplace
+  - image
+  - link
+  - wordcount
+  - fullscreen
+  - charmap
+  - directionality
+  - nonbreaking
+  - media
+  - advlist
+  - autolink
+  - lists
+height: 150
+resize: false
+promotion: false
+branding: false
+images_upload_url: '/uploader/image'

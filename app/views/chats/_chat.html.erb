@@ -86,7 +86,7 @@
             </header>
             
             <!-- Chat Messages -->
-            <div id="messages" data-controller="autoscroll" class="h-screen flex flex-col overflow-y-auto p-4 pb-40">
+            <div id="messages" data-controller="autoscroll" class="h-screen flex flex-col overflow-y-auto p-4 pb-72">
               <div class="flex w-full cursor-pointer">
                 <div class="flex bg-base-100 rounded-lg my-1 p-3 gap-3">
                   <p class="text-gray-500"><span class='grow whitespace-pre-wrap'>~~~ <%= link_to log_chat_path(@chat), log_chat_path(@chat), target: "_blank" %> ~~~</span></p>
@@ -100,8 +100,8 @@
             
             <!-- Chat Input -->
             <footer class="bg-base-100 border-t border-neutral p-4 absolute bottom-0 w-full md:w-3/4">
-                <div class="flex items-center">
-                    <%= render 'messages/form', message: Message.new(chat: @chat) %>
+                <div class="">
+                    <%= render 'messages/rich_form', message: Message.new(chat: @chat) %>
                 </div>
             </footer>
         </div>

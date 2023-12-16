@@ -11,6 +11,7 @@ class BetaCodeDashboard < Administrate::BaseDashboard
     id: Field::Number,
     account: Field::BelongsTo,
     code: Field::Text,
+    origin: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -21,9 +22,9 @@ class BetaCodeDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
     account
     code
+    origin
     created_at
   ].freeze
 
@@ -33,6 +34,7 @@ class BetaCodeDashboard < Administrate::BaseDashboard
     id
     account
     code
+    origin
     created_at
     updated_at
   ].freeze
@@ -41,8 +43,8 @@ class BetaCodeDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    account
     code
+    origin
   ].freeze
 
   # COLLECTION_FILTERS

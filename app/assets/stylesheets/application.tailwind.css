@@ -32,6 +32,15 @@ html {
 	text-rendering: optimizeLegibility;
 }
 
+#messages img {
+	@apply blur-2xl;
+	@apply hover:blur-none;
+	@apply transition;
+	@apply ease-in-out;
+	@apply duration-300;
+	@apply delay-1000	;
+}
+
 /**
 * @author: Alumuko https://github.com/alumuko/alumuko
 * @copyright: Copyright (c) 2021 Alumuko. All rights reserved.

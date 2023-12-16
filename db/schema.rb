@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_15_084832) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_16_031750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -180,9 +180,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_084832) do
 
   create_table "beta_codes", force: :cascade do |t|
     t.text "code"
-    t.bigint "account_id", null: false
+    t.bigint "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "origin", default: ""
     t.index ["account_id"], name: "index_beta_codes_on_account_id"
   end
 
@@ -319,10 +320,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_084832) do
     t.integer "user_id"
     t.datetime "posted", precision: nil, null: false
     t.enum "type", null: false, enum_type: "messages_type"
-    t.string "color", limit: 6, null: false
-    t.string "acronym", limit: 15, null: false
-    t.string "name", limit: 50, null: false
-    t.text "text", null: false
+    t.string "color", limit: 6, default: "", null: false
+    t.string "acronym", limit: 15, default: "", null: false
+    t.string "name", limit: 50, default: "", null: false
+    t.text "text", default: "", null: false
     t.string "spam_flag", limit: 50
     t.integer "render_mode", default: 0
     t.index ["chat_id", "posted"], name: "messages_chat_id"

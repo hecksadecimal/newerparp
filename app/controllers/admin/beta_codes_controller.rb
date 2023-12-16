@@ -8,6 +8,16 @@ module Admin
     #   send_foo_updated_email(requested_resource)
     # end
 
+    def new
+      n = 25
+      code_value = [*'A'..'Z', *0..9].sample(n).join.scan(/.{1,5}/).join("-")
+      resource = resource = BetaCode.new(code: code_value)
+      authorize_resource(resource)
+      render locals: {
+        page: Administrate::Page::Form.new(dashboard, resource),
+      }
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.

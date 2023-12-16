@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'uploader/image'
   namespace :admin do
       resources :accounts
       resources :admin_tiers, except: :index
@@ -30,6 +31,8 @@ Rails.application.routes.draw do
   end
 
   devise_for :accounts
+
+  post 'uploader/image'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

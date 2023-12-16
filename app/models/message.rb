@@ -9,6 +9,8 @@ class Message < ApplicationRecord
     belongs_to :chat_user, query_constraints: [:chat_id, :user_id]
     belongs_to :chat
 
+    has_rich_text :content
+
     after_create_commit -> { 
         broadcast_append_to "chat_#{chat.id}"
         chat.last_message = posted
