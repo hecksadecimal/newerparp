@@ -89,7 +89,7 @@
             <!-- Chat Input -->
             <footer class="bg-base-100 border-t border-neutral md:p-4 max-w-screen w-auto">
                 <div class="">
-                    <%= render 'messages/rich_form', message: Message.new(chat: @chat, content: !@chat_user.acronym.empty? ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : "") %>
+                    <%= render 'messages/rich_form', message: Message.new(chat: @chat, content: (!@chat_user.nil? && !@chat_user.acronym.empty?) ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : "") %>
                 </div>
             </footer>
         </div>
