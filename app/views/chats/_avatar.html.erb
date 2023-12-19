@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "chat_#{chat_user.chat_id}_#{chat_user.number}_avatar" do %>
+    <% if chat_user.typing.value == true %>
+        <div class="avatar indicator">
+            <span class="indicator-item indicator-end animate-pulse border-primary badge" <%== "style='color: ##{chat_user.color};'" %>>Typing…</span>
+            <div class="w-12 h-12 bg-base-300 rounded-full mr-3">
+                <img src="<%= "https://placehold.co/200x/666666/#{chat_user.color}.svg?text=#{chat_user.acronym}&font=Lato" %>" alt="User Avatar" class="w-12 h-12 rounded-full">
+            </div>
+        </div>
+    <% else %>
+        <div class="avatar">
+            <div class="w-12 h-12 bg-base-300 rounded-full mr-3">
+                <img src="<%= "https://placehold.co/200x/666666/#{chat_user.color}.svg?text=#{chat_user.acronym}&font=Lato" %>" alt="User Avatar" class="w-12 h-12 rounded-full">
+            </div>
+        </div>
+    <% end %>
+<% end %>

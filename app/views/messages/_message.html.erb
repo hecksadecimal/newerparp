@@ -1,20 +1,20 @@
 <div class="flex w-full cursor-pointer">
   <% if message.type == "ic" || message.type == "ooc" || message.type == "me"%>
-    <div class="flex rounded-lg px-3 gap-3">
-      <p data-controller="colouradjust" class="text-base-content">
+    <div data-controller="colouradjust" class="flex rounded-lg px-3">
+      <p class="text-base-content">
         <% if message.content.nil? %>
           <%== "<span id='#{dom_id message}' class='grow whitespace-pre-wrap#{(message.color != "000" && message.color != "000000" && message.color != "black") ? "' style='color:\#" + message.color + ";'" : " text-gray-500'"}>#{!message.acronym.empty? ? message.acronym + ": " : ""}#{message.text.bbcode_to_html}</span>" %>
         <% else %>
           <div id="<%= dom_id message %>"
           <%== (message.color != "000" && message.color != "000000" && message.color != "black") ? "style='color: ##{message.color};'" : "class='text-gray-500'" %>>
-            <%= message.content %>
+            <%== message.content.to_s.bbcode_to_html_unsafe  %>
           </div>
         <% end %>
       </p>
     </div>
   <% else %>
-    <div class="flex bg-base-100 rounded-lg my-1 p-3 gap-3">
-      <p data-controller="colouradjust" class="text-gray-500">
+    <div data-controller="colouradjust" class="flex bg-base-100 rounded-lg my-1 p-3">
+      <p class="text-gray-500">
         <% if message.content.nil? %>
           <%== "<span id='#{dom_id message}' class='grow text-gray-500 whitespace-pre-wrap'>#{message.text}</span>" %>
         <% else %>

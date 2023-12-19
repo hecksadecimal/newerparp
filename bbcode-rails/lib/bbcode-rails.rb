@@ -28,6 +28,11 @@ module BBCode
     str.gsub!('"', '&quot;')
     str.gsub!("'", '&apos;')
 
+    unsafe_parse str, raise_error
+  end
+
+  def self.unsafe_parse str, raise_error=false
+
     # Let's iterate over the pieces to build a tree
     # It works like this:
     # For each object you have two things:
@@ -177,6 +182,10 @@ end
 class String
   def bbcode_to_html raise_error = false
     BBCode.parse(self, raise_error)
+  end
+
+  def bbcode_to_html_unsafe raise_error = false
+    BBCode.unsafe_parse(self, raise_error)
   end
 end
 

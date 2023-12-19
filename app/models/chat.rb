@@ -31,6 +31,13 @@ class Chat < ApplicationRecord
     has_many :messages
     has_one :group_chat, foreign_key: "id", dependent: :destroy
 
+    kredis_hash :online_statuses, after_change: :update_statuses, default: {}
+
+
+    def update_statuses
+        broadcast_replace_to "chat_#{self.id}", target: "chat_#{self.id}_userlist", partial: "chats/userlist", chat: self 
+    end
+
     def created_at
         created
     end

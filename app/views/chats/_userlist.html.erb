@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "#{dom_id(chat)}_userlist" do %>    
+    <% if !chat.online_statuses.keys.empty? %>
+        <div class="divider font-black">Online</div>
+    <% end %>
+    <% chat.online_statuses.keys.each do |chat_number| %>
+        <% chat_user = chat.chat_users.find_by(number: chat_number) %>
+        <div id="<%= "chat_#{chat_user.chat_id}_#{chat_number}_status" %>">
+            <div class="flex items-center mb-4 cursor-pointer hover:bg-base-200 p-2 rounded-md">
+            <%= render "chats/avatar", chat_user: chat_user %>
+            <div class="flex-1">
+                <h2 class="text-lg font-semibold"><%= chat_user.name %></h2>
+                <p class="text-base-content"><%= chat_user.group %><%= " (idle)" if chat.online_statuses[chat_number.to_s] == "idle" %></p>
+            </div>
+            </div>
+        </div>
+    <% end %>
+<% end %>

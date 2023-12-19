@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :chat, only: :show, controller: "chats" do
     member do
       get 'log'
+      patch 'presence'
     end
   end
   resources :chats, except: :show do

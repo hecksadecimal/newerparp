@@ -18,6 +18,7 @@ module.exports = {
       animation: {
         marquee: 'marquee 25s linear infinite',
         marquee2: 'marquee2 25s linear infinite',
+        typing: 'typing 2s steps(6), blink 1s infinite',
       },
       keyframes: {
         marquee: {
@@ -27,7 +28,23 @@ module.exports = {
         marquee2: {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0%)' },
-        }
+        },
+        typing: {
+          from: {
+            width: '0'
+          },
+          to: {
+            width: '6ch'
+          },
+        },
+        blink: {
+          from: {
+            'border-right-color': 'transparent'
+          },
+          to: {
+            'border-right-color': 'black'
+          },
+        },
       },
     }
   },

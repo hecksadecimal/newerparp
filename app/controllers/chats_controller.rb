@@ -1,8 +1,7 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[ show log edit update destroy ]
+  before_action :set_chat, only: %i[ show log presence edit update destroy ]
   before_action :authenticate_account!, only: %i[ visited owned searched show subscribed new edit create update destroy ]
-  before_action :add_sentry_context, only: %i[ show log edit create update destroy ]
-  before_action :set_chat_users_online, only: %i[ show ]
+  before_action :add_sentry_context, only: %i[ show log presence edit create update destroy ]
 
   rescue_from Pagy::OverflowError, with: :redirect_to_last_page
 
@@ -19,8 +18,30 @@ class ChatsController < ApplicationController
       return
     end
 
-    @messages = @chat.messages.order(posted: 'DESC').first(100).reverse
+    @messages = @chat.messages.with_rich_text_content_and_embeds.order(posted: 'DESC').first(100).reverse
     render :layout => 'application_chat'
+  end
+
+  # PATCH/PUT /chat/something/presence
+  def presence 
+    authorize! @chat, to: :show?
+
+    chat_user = ChatUser.find([@chat.id, current_account.id])
+    status = params[:status]
+    case status
+    when "online"
+      @chat.online_statuses.update("#{chat_user.number}" => "online")
+    when "idle"
+      @chat.online_statuses.update("#{chat_user.number}" => "idle")
+    when "offline"
+      @chat.online_statuses.delete("#{chat_user.number}")
+    when "beginTyping"
+      chat_user.typing.value = true
+    when "stopTyping"
+      chat_user.typing.value = false
+    else
+      @chat.online_statuses.update("#{chat_user.number}" => "online")
+    end
   end
 
   # GET /chat/something/log or /chat/something/log.json
@@ -121,16 +142,12 @@ class ChatsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_chat
       @chat = Chat.find_by_url(params[:id])
+      @chat_user = ChatUser.where(chat_id: @chat.id, user_id: current_account.id).first
     end
 
     # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:url, :type, :last_message)
-    end
-
-    def set_chat_users_online
-      online_chat_users = Kredis.unique_list("chat_#{@chat.id}_accounts_online")
-      @online_chat_users = ChatUser.where(chat_id: @chat.id, user_id: online_chat_users.elements)
     end
 
     def pagy_calendar_period(messages)

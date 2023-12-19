@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html data-theme>
   <head>
-    <title>Newerparp</title>
+    <% if content_for?(:page_title) %>
+      <%= yield(:page_title) %>
+    <% else %>
+      <title>Newerparp</title>
+    <% end %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,6 +14,9 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script type="module">
+      import "https://cdn.skypack.dev/rhino-editor@^0.9.0/cdn/exports/index.js"
+    </script>
     <%= yield :page_header %>
   </head>
 
