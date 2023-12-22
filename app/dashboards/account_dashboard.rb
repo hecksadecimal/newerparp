@@ -77,9 +77,8 @@ class AccountDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     username
     email
-    admin_tier
+    unconfirmed_email
     last_seen_at
-    current_sign_in_ip
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -88,6 +87,7 @@ class AccountDashboard < Administrate::BaseDashboard
     id
     username
     email
+    unconfirmed_email
     last_seen_at
     date_of_birth
     group
