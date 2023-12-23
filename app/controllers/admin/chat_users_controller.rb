@@ -12,9 +12,12 @@ module Admin
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.
     #
-    # def find_resource(param)
-    #   Foo.find_by!(slug: param)
-    # end
+    def find_resource(param)
+      ids = param.split("_")
+      chat_id = ids[0]
+      user_id = ids[1]
+      ChatUser.find_by!(chat_id: chat_id, user_id: user_id)
+    end
 
     # The result of this lookup will be available as `requested_resource`
 

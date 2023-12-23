@@ -10,7 +10,6 @@ class ChatUserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     account: Field::BelongsTo.with_options(searchable_fields: [:username]),
     acronym: Field::String,
-    case: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     chat: Field::BelongsTo.with_options(searchable_fields: [:url]),
     color: Field::String.with_options(searchable: false),
     confirm_disconnect: Field::Boolean.with_options(searchable: false),
@@ -18,8 +17,6 @@ class ChatUserDashboard < Administrate::BaseDashboard
     draft: Field::Text.with_options(searchable: false),
     enable_activity_indicator: Field::Boolean.with_options(searchable: false),
     group: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
-    highlighted_numbers: Field::Number.with_options(searchable: false),
-    ignored_numbers: Field::Number.with_options(searchable: false),
     last_online: Field::DateTime.with_options(searchable: false),
     name: Field::String,
     notes: Field::Text,
@@ -37,8 +34,7 @@ class ChatUserDashboard < Administrate::BaseDashboard
     subscribed: Field::Boolean,
     theme: Field::String.with_options(searchable: false),
     title: Field::String.with_options(searchable: false),
-    typing_notifications: Field::Boolean.with_options(searchable: false),
-    user_id: Field::Number.with_options(searchable: false),
+    typing_notifications: Field::Boolean.with_options(searchable: false)
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -58,16 +54,12 @@ class ChatUserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     account
     acronym
-    case
     chat
     color
     confirm_disconnect
     desktop_notifications
     draft
     enable_activity_indicator
-    group
-    highlighted_numbers
-    ignored_numbers
     last_online
     name
     notes
@@ -86,25 +78,18 @@ class ChatUserDashboard < Administrate::BaseDashboard
     theme
     title
     typing_notifications
-    user_id
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    account
     acronym
-    case
-    chat
     color
     confirm_disconnect
     desktop_notifications
     draft
     enable_activity_indicator
-    group
-    highlighted_numbers
-    ignored_numbers
     last_online
     name
     notes
@@ -123,7 +108,6 @@ class ChatUserDashboard < Administrate::BaseDashboard
     theme
     title
     typing_notifications
-    user_id
   ].freeze
 
   # COLLECTION_FILTERS
@@ -141,7 +125,7 @@ class ChatUserDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how chat users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(chat_user)
-  #   "ChatUser ##{chat_user.id}"
-  # end
+  def display_resource(chat_user)
+     "#{chat_user.chat.url}, ##{chat_user.number}"
+  end
 end

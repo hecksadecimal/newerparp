@@ -10,7 +10,7 @@ class ChatDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     accounts: Field::HasMany,
-    chat_users: Field::HasMany,
+    chat_users: Field::HasMany.with_options(sort_by: :number),
     created: Field::DateTime,
     group_chat: Field::HasOne,
     last_message: Field::DateTime,
@@ -25,9 +25,7 @@ class ChatDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
-    accounts
-    chat_users
+    url
     created
   ].freeze
 
@@ -35,7 +33,6 @@ class ChatDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    accounts
     chat_users
     created
     group_chat
@@ -49,7 +46,6 @@ class ChatDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    accounts
     chat_users
     created
     group_chat
