@@ -1,5 +1,7 @@
 class ChatUser < ApplicationRecord
     self.primary_key = [:chat_id, :user_id]
+    
+    default_scope { order(last_online: :desc) }
 
     belongs_to :account, :foreign_key => 'user_id'
     belongs_to :chat
