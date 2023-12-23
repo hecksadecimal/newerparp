@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :admin_tier_permissions, except: :index
       resources :beta_codes
       resources :chats, except: :index
-      resources :chat_users, except: :index
+      resources :chat_users
       resources :group_chats, except: :index
       resources :legacy_users, except: :index
       resources :messages, except: :index

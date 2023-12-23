@@ -74,7 +74,7 @@ class ChatDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how chats are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(chat)
-  #   "Chat ##{chat.id}"
-  # end
+  def display_resource(chat)
+    "#{chat.url}"
+  end
 end

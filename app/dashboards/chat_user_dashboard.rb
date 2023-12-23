@@ -8,37 +8,37 @@ class ChatUserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    account: Field::BelongsTo,
+    account: Field::BelongsTo.with_options(searchable_fields: [:username]),
     acronym: Field::String,
     case: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
-    chat: Field::BelongsTo,
-    color: Field::String,
-    confirm_disconnect: Field::Boolean,
-    desktop_notifications: Field::Boolean,
-    draft: Field::Text,
-    enable_activity_indicator: Field::Boolean,
+    chat: Field::BelongsTo.with_options(searchable_fields: [:url]),
+    color: Field::String.with_options(searchable: false),
+    confirm_disconnect: Field::Boolean.with_options(searchable: false),
+    desktop_notifications: Field::Boolean.with_options(searchable: false),
+    draft: Field::Text.with_options(searchable: false),
+    enable_activity_indicator: Field::Boolean.with_options(searchable: false),
     group: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
-    highlighted_numbers: Field::Number,
-    ignored_numbers: Field::Number,
-    last_online: Field::DateTime,
+    highlighted_numbers: Field::Number.with_options(searchable: false),
+    ignored_numbers: Field::Number.with_options(searchable: false),
+    last_online: Field::DateTime.with_options(searchable: false),
     name: Field::String,
     notes: Field::Text,
-    number: Field::Number,
-    quirk_prefix: Field::String,
-    quirk_suffix: Field::String,
-    regexes: Field::Text,
-    replacements: Field::Text,
-    search_character_id: Field::Number,
-    show_bbcode: Field::Boolean,
-    show_preview: Field::Boolean,
-    show_system_messages: Field::Boolean,
-    show_timestamps: Field::Boolean,
-    show_user_numbers: Field::Boolean,
+    number: Field::Number.with_options(searchable: false),
+    quirk_prefix: Field::String.with_options(searchable: false),
+    quirk_suffix: Field::String.with_options(searchable: false),
+    regexes: Field::Text.with_options(searchable: false),
+    replacements: Field::Text.with_options(searchable: false),
+    search_character_id: Field::Number.with_options(searchable: false),
+    show_bbcode: Field::Boolean.with_options(searchable: false),
+    show_preview: Field::Boolean.with_options(searchable: false),
+    show_system_messages: Field::Boolean.with_options(searchable: false),
+    show_timestamps: Field::Boolean.with_options(searchable: false),
+    show_user_numbers: Field::Boolean.with_options(searchable: false),
     subscribed: Field::Boolean,
-    theme: Field::String,
-    title: Field::String,
-    typing_notifications: Field::Boolean,
-    user_id: Field::Number,
+    theme: Field::String.with_options(searchable: false),
+    title: Field::String.with_options(searchable: false),
+    typing_notifications: Field::Boolean.with_options(searchable: false),
+    user_id: Field::Number.with_options(searchable: false),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -48,8 +48,8 @@ class ChatUserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     account
-    acronym
-    case
+    name
+    number
     chat
   ].freeze
 
