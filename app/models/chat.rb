@@ -1,7 +1,7 @@
 class Chat < ApplicationRecord
     self.inheritance_column = 'inheritance_type'
 
-    default_scope { order(created: :asc) }
+    default_scope { order(last_message: :desc) }
     scope :user_searched, lambda { |account|
         searched.joins(:chat_users).where("chat_users.user_id = ?", account.id)
     }
