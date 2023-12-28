@@ -8,6 +8,21 @@ class ChatUser < ApplicationRecord
     has_many :messages, query_constraints: [:chat_id, :user_id]
 
     kredis_boolean :typing, after_change: :update_typing, default: false
+    
+    after_create_commit -> {
+        message = Message.new
+        message.text = "#{self.name} [#{self.acronym}] joined chat."
+        message.account = self.account
+        message.chat = self.chat
+
+        message.acronym = ""
+        message.name = self.name
+        message.color = "000000"
+        message.type = "ooc"
+        message.posted = Time.now
+        
+        message.save
+    }
 
     def update_typing
         typing_users = []

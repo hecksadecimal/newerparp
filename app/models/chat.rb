@@ -33,6 +33,46 @@ class Chat < ApplicationRecord
 
     kredis_hash :online_statuses, after_change: :update_statuses, default: {}
 
+    def add_account(account)
+        chat_user = ChatUser.new
+        chat_user.account = account
+        chat_user.chat = self
+        chat_user.number = self.chat_users.unscope(:order).order(number: 'DESC').first.number + 1
+        chat_user.subscribed = false
+        chat_user.last_online = DateTime.now
+        if !self.group_chat.nil?
+            if self.group_chat.autosilence
+                chat_user.group = "silent"
+            else
+                chat_user.group = "user"
+            end
+        else
+            chat_user.group = "user"
+        end
+
+        chat_user.name = account.name
+        chat_user.acronym = account.acronym
+        chat_user.color = account.color
+        chat_user.acronym = account.acronym
+        chat_user.quirk_prefix = account.quirk_prefix
+        chat_user.quirk_suffix = account.quirk_suffix
+        chat_user.case = account.case
+        chat_user.replacements = account.replacements
+        chat_user.regexes = account.regexes
+        chat_user.confirm_disconnect = account.confirm_disconnect
+        chat_user.desktop_notifications = account.desktop_notifications
+        chat_user.show_system_messages = account.show_system_messages
+        chat_user.show_bbcode = account.show_bbcode
+        chat_user.show_preview = account.show_preview
+        chat_user.highlighted_numbers = []
+        chat_user.ignored_numbers = []
+        chat_user.show_user_numbers = account.show_user_numbers
+        chat_user.typing_notifications = account.typing_notifications
+        chat_user.show_timestamps = account.show_timestamps
+        chat_user.search_character_id = account.search_character_id
+
+        chat_user.save
+    end
 
     def update_statuses
         broadcast_replace_to "chat_#{self.id}", target: "chat_#{self.id}_userlist", partial: "chats/userlist", chat: self 

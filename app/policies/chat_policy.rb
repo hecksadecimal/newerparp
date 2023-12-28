@@ -25,6 +25,10 @@ class ChatPolicy < ApplicationPolicy
   def destroy?
     user.admin? && user.permissions.where(permission: "groups").any?
   end
+
+  def join?
+    (user.admin? && user.permissions.where(permission: "groups").any?) || (record.group_chat.present? && ["listed", "unlisted", "pinned"].include?(record.group_chat.publicity))
+  end
   
   # Scoping
   # See https://actionpolicy.evilmartians.io/#/scoping

@@ -12,10 +12,16 @@ class ChatsController < ApplicationController
 
   # GET /chat/something or /chat/something.json
   def show
-    authorize! @chat, to: :show?
     if UNLEASH.is_disabled? "beta", @unleash_context
       redirect_to log_chat_path(@chat)
       return
+    end
+
+    if !@chat.accounts.include?(current_account)
+      authorize! @chat, to: :join?
+      @chat.add_account(current_account)
+    else
+      authorize! @chat, to: :show?
     end
 
     @messages = @chat.messages.with_rich_text_content_and_embeds.order(posted: 'DESC').first(100).reverse
