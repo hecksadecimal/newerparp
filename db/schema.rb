@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_17_192618) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_28_171439) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -167,6 +167,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_17_192618) do
     t.string "version_num", limit: 32, null: false
   end
 
+  create_table "announcements", force: :cascade do |t|
+    t.string "title"
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_announcements_on_account_id"
+  end
+
   create_table "bans", primary_key: ["user_id", "chat_id"], force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "chat_id", null: false
@@ -262,7 +270,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_17_192618) do
     t.datetime "created", precision: nil, null: false
     t.datetime "last_message", precision: nil, null: false
     t.index ["last_message"], name: "chats_last_message_index"
-    t.unique_key ["url"], name: "chats_url_key"
+    t.unique_constraint ["url"], name: "chats_url_key"
   end
 
   create_table "email_bans", id: :serial, force: :cascade do |t|
@@ -271,7 +279,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_17_192618) do
     t.integer "creator_id", null: false
     t.string "reason", limit: 255, null: false
 
-    t.unique_key ["pattern"], name: "email_bans_pattern_key"
+    t.unique_constraint ["pattern"], name: "email_bans_pattern_key"
   end
 
   create_table "fandoms", id: :serial, force: :cascade do |t|
@@ -363,7 +371,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_17_192618) do
     t.integer "points"
     t.boolean "muted"
     t.index ["message_id"], name: "t_msg_id_spamflag"
-    t.unique_key ["message_id"], name: "spam_flags_message_id_key"
+    t.unique_constraint ["message_id"], name: "spam_flags_message_id_key"
   end
 
   create_table "spamless_filters", id: :serial, force: :cascade do |t|
@@ -439,6 +447,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_17_192618) do
   add_foreign_key "admin_log_entries", "users", column: "action_user_id", name: "admin_log_entries_action_user_id_fkey"
   add_foreign_key "admin_log_entries", "users", column: "affected_user_id", name: "admin_log_entries_affected_user_id_fkey"
   add_foreign_key "admin_tier_permissions", "admin_tiers", name: "admin_tier_permissions_admin_tier_id_fkey"
+  add_foreign_key "announcements", "accounts"
   add_foreign_key "bans", "chats", name: "ban_chat_id_fkey", on_delete: :cascade
   add_foreign_key "bans", "users", column: "creator_id", name: "bans_creator_id_fkey"
   add_foreign_key "bans", "users", name: "bans_user_id_fkey"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :announcements, only: [:index, :show]
   get 'redeem', to: 'redeem#index'
   put 'redeem/consume'
 
@@ -13,11 +14,11 @@ Rails.application.routes.draw do
       resources :group_chats, except: :index
       resources :legacy_users, except: :index
       resources :messages, except: :index
+      resources :announcements
 
       root to: "accounts#index"
     end
-  resources :messages
-  resources :beta_codes
+  resources :messages, except: [:index]
 
   resources :chat, only: :show, controller: "chats" do
     member do
@@ -45,5 +46,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "announcements#index"
 end

@@ -1,0 +1,21 @@
+<div id="announcements" class="grid grid-cols-1 gap-4 place-content-center">
+  <div class="bg-base-200 p-4">
+    <%== pagy_info(@pagy, item_name: 'Announcement'.pluralize(@pagy.count)) %>
+    <% if @pagy.pages > 1 %>
+      <div>
+          <%== pagy_nav(@pagy)%>
+      </div>
+    <% end %>
+  </div>
+  <% @announcements.each do |announcement| %>
+    <%= render announcement %>
+  <% end %>
+  <div class="bg-base-200 p-4">
+    <% if @pagy.pages > 1 %>
+      <div>
+          <%== pagy_nav(@pagy)%>
+      </div>
+    <% end %>
+  </div>
+</div>
+

@@ -1,0 +1,12 @@
+<div id="<%= dom_id announcement %>" class="card place-self-center w-full md:w-2/3 bg-base-100 shadow-xl">
+  <div class="card-body prose-xl">
+    <h2 class="card-title"><%= link_to announcement.title, announcement %></h2>
+    <%= announcement.content %>
+    <div class="text-xs">
+      <%= time_ago_in_words announcement.created_at %> ago
+      <% if time_ago_in_words(announcement.updated_at) != time_ago_in_words(announcement.created_at) %>
+        (edited <%= time_ago_in_words announcement.updated_at %> ago)
+      <% end %>
+    </div>
+  </div>
+</div>

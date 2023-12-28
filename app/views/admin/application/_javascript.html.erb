@@ -11,6 +11,9 @@ by providing a `content_for(:javascript)` block.
   <%= javascript_include_tag js_path %>
 <% end %>
 
+<script type="module">
+  import "https://cdn.skypack.dev/rhino-editor@^0.9.0/cdn/exports/index.js"
+</script>
 <%= yield :javascript %>
 
 <% if Rails.env.test? %>
