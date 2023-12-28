@@ -9,7 +9,7 @@
                     <%= form.submit "Send", class: "md:hidden w-full self-end h-6 btn btn-error pt-1" %>
                 </div>
             <% else %>
-                <%= form.submit "Send", class: "md:hidden max-w-screen w-10/12 self-end h-6 btn btn-primary pt-1" %>
+                <%= form.submit "Send", class: "md:hidden max-w-screen w-full self-end h-6 btn btn-primary pt-1" %>
             <% end %>
             <rhino-editor data-controller="wysiwyg" class="h-full max-h-64 overflow-y-auto rhino-editor" accept="image/*"
                 input="<%= form.field_id(:content) %>"

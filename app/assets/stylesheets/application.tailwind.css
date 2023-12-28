@@ -373,6 +373,22 @@ rhino-editor { @apply prose max-w-none }
   @apply opacity-25;
 }
 
+.rhino-editor::part(toolbar__button--undo) {
+  @apply hidden md:inline-flex;
+}
+
+.rhino-editor::part(toolbar__button--redo) {
+  @apply hidden md:inline-flex;
+}
+
+.rhino-editor::part(toolbar__button--link) {
+  @apply me-0 md:me-4;
+}
+
+.rhino-editor::part(toolbar__button--increase-indentation) {
+  @apply me-0 md:me-4;
+}
+
 /*# sourceMappingURL=trix.css.map */
 
 
