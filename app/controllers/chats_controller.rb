@@ -143,6 +143,14 @@ class ChatsController < ApplicationController
     def set_chat
       @chat = Chat.find_by_url(params[:id])
       @chat_user = ChatUser.where(chat_id: @chat.id, user_id: current_account.id).first
+      @typing_users = []
+
+      @chat.online_statuses.keys.each do |chat_number|
+        chat_user = @chat.chat_users.find_by(number: chat_number)
+        if chat_user.typing.value == true
+            @typing_users << chat_user.name
+        end 
+      end
     end
 
     # Only allow a list of trusted parameters through.

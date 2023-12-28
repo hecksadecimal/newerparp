@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "chat_#{chat_id}_typing_mobile" do %>    
+    <span>
+        <% if typing_users.size > 0 %>
+          <%= typing_users.to_sentence %> <%= typing_users.size == 1 ? "is" : "are" %> typing.
+        <% end %>
+    </span>
+<% end %>
