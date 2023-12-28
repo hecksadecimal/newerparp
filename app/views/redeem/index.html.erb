@@ -1,0 +1,16 @@
+<% if @beta_code %>
+    <div class="flex flex-col items-center h-screen overflow-hidden pt-8">
+        <div class="w-full p-6 bg-base-200 border-t-4 border-accent rounded-md shadow-md border-top lg:max-w-lg">
+            <div class="space-y-4">
+                <div class="field">
+                    <label class="label">
+                        <span class="text-base label-text">Beta Code</span>
+                    </label>
+                    <input disabled type="text" class="w-full input input-bordered bg-base-300 focus:bg-base-300" value="<%= @beta_code.code %>">
+                </div>
+            </div>
+        </div>
+    </div>
+<% else %>
+    <%= render "redeem/form" %>
+<% end %>

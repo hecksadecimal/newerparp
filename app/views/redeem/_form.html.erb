@@ -1,0 +1,15 @@
+<div class="flex flex-col items-center h-screen overflow-hidden pt-8">
+    <div class="w-full p-6 bg-base-200 border-t-4 border-accent rounded-md shadow-md border-top lg:max-w-lg">
+        <%= form_with(url: redeem_consume_path, html: { method: :put }, class: "space-y-4") do |f| %> 
+            <div class="field">
+              <label class="label">
+                  <span class="text-base label-text">Beta Code</span>
+              </label>
+              <%= f.text_field :code, autofocus: true, autocomplete: "beta-code", class: "w-full input input-bordered bg-base-300 focus:bg-base-300" %>
+            </div>
+            <div class="pt-2">
+                <%= f.submit "Apply", class: "btn btn-block btn-accent" %>
+            </div>
+        <% end %>
+    </div>
+</div>

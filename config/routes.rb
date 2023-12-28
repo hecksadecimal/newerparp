@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'redeem', to: 'redeem#index'
+  put 'redeem/consume'
+
   get 'uploader/image'
   namespace :admin do
       resources :accounts
