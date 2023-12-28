@@ -22,8 +22,18 @@ class AdminStrategy
     end
 
     def is_enabled?(params = {}, context = nil)
-      return false unless !context.nil? && !context.properties.nil? && !context.properties.key?("admin") && context.properties[:admin]
-      return false unless context.class.name == 'Unleash::Context'
+      if context.nil? && context.properties.nil?
+        return false
+      end
+
+      if context.properties[:admin].nil?
+        return false
+      end
+
+      if !context.properties[:admin]
+        return false
+      end
+
       return true
     end
 end
