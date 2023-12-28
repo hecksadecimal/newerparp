@@ -14,4 +14,16 @@ class ApplicationPolicy < ActionPolicy::Base
   #  def owner?
   #    record.user_id == user.id
   #  end
+
+  def generate_context(user)
+    @unleash_context = Unleash::Context.new(
+      user_id: user ? user.id : nil,
+      betakey: (user && user.beta_code.present?) ? user.beta_code.code : "",
+      admin: (user && user.admin?) ? true : false,
+      properties: { 
+          betakey: (user && user.beta_code.present?) ? user.beta_code.code : "",
+          admin: (user && user.admin?) ? true : false
+      }
+    )
+  end
 end

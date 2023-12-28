@@ -104,10 +104,33 @@ class ChatsController < ApplicationController
   # POST /chats or /chats.json
   def create
     @chat = Chat.new(chat_params)
+    @chat.type = "group"
+    @chat.created = DateTime.now
+    @chat.last_message = @chat.created
+
     authorize! @chat, to: :create?
 
     respond_to do |format|
       if @chat.save
+        @chat.add_account(current_account)
+        chat_user = @chat.chat_users.find_by(number: 1)
+        chat_user.group = "mod3"
+        chat_user.save
+
+        group_chat = GroupChat.new
+        group_chat.title = @chat.url
+        group_chat.topic = ""
+        group_chat.description = ""
+        group_chat.rules = ""
+        group_chat.autosilence = false
+        group_chat.style = "either"
+        group_chat.level = "sfw"
+        group_chat.publicity = "listed"
+        group_chat.creator_id = current_account.id
+        group_chat.id = @chat.id
+        group_chat.save
+
+
         format.html { redirect_to chat_url(@chat), notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
       else
@@ -161,7 +184,7 @@ class ChatsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def chat_params
-      params.require(:chat).permit(:url, :type, :last_message)
+      params.require(:chat).permit(:url)
     end
 
     def pagy_calendar_period(messages)

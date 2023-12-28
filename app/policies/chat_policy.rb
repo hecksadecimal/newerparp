@@ -11,22 +11,27 @@ class ChatPolicy < ApplicationPolicy
   # end
 
   def create?
+    generate_context(user)
     UNLEASH.is_enabled? "beta", @unleash_context
   end
 
   def show?
+    generate_context(user)
     (user.admin? && user.permissions.where(permission: "groups").any?) || (record.group_chat.present? && ["listed", "unlisted", "pinned"].include?(record.group_chat.publicity)) || record.accounts.include?(user)
   end
 
   def update?
+    generate_context(user)
     record.group_chat? && record.group_chat.creator_id == user.id || (user.admin? && user.permissions.where(permission: "groups").any?)
   end
   
   def destroy?
+    generate_context(user)
     user.admin? && user.permissions.where(permission: "groups").any?
   end
 
   def join?
+    generate_context(user)
     (user.admin? && user.permissions.where(permission: "groups").any?) || (record.group_chat.present? && ["listed", "unlisted", "pinned"].include?(record.group_chat.publicity))
   end
   
@@ -37,4 +42,16 @@ class ChatPolicy < ApplicationPolicy
   #   next relation if user.admin?
   #   relation.where(user: user)
   # end
+
+  def generate_context(user)
+    @unleash_context = Unleash::Context.new(
+      user_id: user ? user.id : nil,
+      betakey: (user && user.beta_code.present?) ? user.beta_code.code : "",
+      admin: (user && user.admin?) ? true : false,
+      properties: { 
+          betakey: (user && user.beta_code.present?) ? user.beta_code.code : "",
+          admin: (user && user.admin?) ? true : false
+      }
+    )
+  end
 end

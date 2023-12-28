@@ -44,7 +44,7 @@ class MessagesController < ApplicationController
             locals: {message: Message.new(chat_id: @message.chat_id, content: !chat_user.acronym.empty? ? "<p><span><strong>#{chat_user.acronym}:</strong>&nbsp;</span></p>" : "")}
           )
         end
-        format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
+        format.html { redirect_to chat_url(@message.chat), notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
       else
         format.turbo_stream do
@@ -52,7 +52,7 @@ class MessagesController < ApplicationController
             locals: {message: @message}
           )
         end
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to chat_url(@message.chat), status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end

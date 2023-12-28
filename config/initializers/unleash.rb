@@ -4,8 +4,14 @@ class BetaKeyStrategy
     end
   
     def is_enabled?(params = {}, context = nil)
-      return false unless !context.properties.key?("betakey") && !context.properties[:betakey].nil? && !context.properties[:betakey].empty?
-      return false unless context.class.name == 'Unleash::Context'
+      if context.nil? && context.properties.nil?
+        return false
+      end
+
+      if context.properties[:betakey].nil? || context.properties[:betakey].empty?
+        return false
+      end
+
       return true
     end
 end
@@ -16,7 +22,7 @@ class AdminStrategy
     end
 
     def is_enabled?(params = {}, context = nil)
-      return false unless !context.properties.key?("admin") && context.properties[:admin]
+      return false unless !context.nil? && !context.properties.nil? && !context.properties.key?("admin") && context.properties[:admin]
       return false unless context.class.name == 'Unleash::Context'
       return true
     end

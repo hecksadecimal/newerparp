@@ -37,7 +37,12 @@ class Chat < ApplicationRecord
         chat_user = ChatUser.new
         chat_user.account = account
         chat_user.chat = self
-        chat_user.number = self.chat_users.unscope(:order).order(number: 'DESC').first.number + 1
+        last_chat_user = self.chat_users.unscope(:order).order(number: 'DESC').first
+        last_number = 0
+        if !last_chat_user.nil?
+            last_number = last_chat_user.number
+        end
+        chat_user.number = last_number + 1
         chat_user.subscribed = false
         chat_user.last_online = DateTime.now
         if !self.group_chat.nil?
