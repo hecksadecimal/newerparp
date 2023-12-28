@@ -31,5 +31,8 @@ application.register("spoiler", SpoilerController)
 import ThemeSelectController from "./theme_select_controller"
 application.register("theme-select", ThemeSelectController)
 
+import TypingController from "./typing_controller"
+application.register("typing", TypingController)
+
 import WysiwygController from "./wysiwyg_controller"
 application.register("wysiwyg", WysiwygController)

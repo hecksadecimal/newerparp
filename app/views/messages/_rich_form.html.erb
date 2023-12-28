@@ -1,5 +1,5 @@
 <%= turbo_frame_tag dom_id(message.chat, :input), class: "max-w-screen w-full" do %>
-  <%= form_with(model: message, class: "w-full max-w-full flex md:space-x-2") do |form| %>
+  <%= form_with(model: message, class: "w-full max-w-full flex md:space-x-2", data: {controller: "typing"}) do |form| %>
     <% if message.chat.accounts.include?(current_account) %>
         <div class="w-full">
             <%= form.hidden_field :chat_id, value: message.chat_id %>
