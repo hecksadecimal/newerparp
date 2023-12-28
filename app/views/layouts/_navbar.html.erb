@@ -30,5 +30,8 @@
     <% if current_account && current_account.admin? %>
       <li><%= link_to "Admin", admin_root_path, class: "btn" %></li>
     <% end %>
+    <% if current_account && current_account.beta_code.nil? %>
+      <li><%= link_to "Redeem", redeem_path, class: "btn" %></li>
+    <% end %>
   </ul>
 </div>
