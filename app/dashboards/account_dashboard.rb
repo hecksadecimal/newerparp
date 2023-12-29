@@ -136,6 +136,9 @@ class AccountDashboard < Administrate::BaseDashboard
     date_of_birth
     admin_tier
     group
+    name
+    acronym
+    color
   ].freeze
 
   # COLLECTION_FILTERS
