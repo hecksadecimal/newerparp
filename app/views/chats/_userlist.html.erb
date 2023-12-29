@@ -9,7 +9,7 @@
             <%= render "chats/avatar", chat_user: chat_user %>
             <div class="flex-1">
                 <h2 class="text-lg font-semibold"><%= chat_user.name %></h2>
-                <p class="text-base-content"><%= chat_user.group %><%= " (idle)" if chat.online_statuses[chat_number.to_s] == "idle" %></p>
+                <p class="text-base-content"><%= chat_user.user_id != chat.group_chat.creator_id ? chat_user.group : "owner" %><%= " (idle)" if chat.online_statuses[chat_number.to_s] == "idle" %></p>
             </div>
             </div>
         </div>
