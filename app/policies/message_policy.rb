@@ -26,7 +26,7 @@ class MessagePolicy < ApplicationPolicy
         return false
       end
 
-      if user.id == record.user_id && allowed_to?(:show?, record.chat) && !chat_user.group == "silent"
+      if user.id == record.user_id && allowed_to?(:show?, record.chat) && !chat_user.silent?
         puts "CONDITION PASSED!!!!"
         return true
       end
