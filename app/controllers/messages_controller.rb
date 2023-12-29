@@ -41,7 +41,7 @@ class MessagesController < ApplicationController
       if @message.save
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace("input_chat_#{@message.chat_id}", partial: "messages/rich_form",
-            locals: {message: Message.new(chat_id: @message.chat_id, content: !chat_user.acronym.empty? ? "<p><span><strong>#{chat_user.acronym}:</strong>&nbsp;</span></p>" : "")}
+            locals: {account: current_account, message: Message.new(chat_id: @message.chat_id, content: !chat_user.acronym.empty? ? "<p><span><strong>#{chat_user.acronym}:</strong>&nbsp;</span></p>" : "")}
           )
         end
         format.html { redirect_to chat_url(@message.chat), notice: "Message was successfully created." }
@@ -49,7 +49,7 @@ class MessagesController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace("input_chat_#{@message.chat_id}", partial: "messages/rich_form",
-            locals: {message: @message}
+            locals: {account: current_account, message: @message}
           )
         end
         format.html { redirect_to chat_url(@message.chat), status: :unprocessable_entity }

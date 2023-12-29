@@ -20,8 +20,9 @@ Rails.application.routes.draw do
     end
   resources :messages, except: [:index]
 
-  resources :chat, only: :show, controller: "chats" do
+  resources :chat, only: [:show, :edit, :update], controller: "chats" do
     member do
+      get 'users'
       get 'log'
       patch 'presence'
     end

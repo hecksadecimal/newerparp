@@ -1,0 +1,66 @@
+<div class="flex flex-col items-center min-h-screen pt-8">
+    <div class="w-full p-6 bg-base-200 border-t-4 border-accent rounded-md shadow-md border-top lg:max-w-full">
+        <h1 class="text-xl font-black pb-4">Editing <%= @chat.url %></h1>
+        <%= form_for(chat, class: "space-x-4", html: { method: :put }) do |f|%>     
+            <div class="field pb-4 flex flex-col md:flex-row">
+              <%= f.fields_for :group_chat, @chat.group_chat || @chat.build_group_chat do |g| %>
+                <div class="flex flex-col space-y-4 pb-4">
+                    <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                            <span class="label-text">Publicity</span>
+                        </div>
+                        <%= g.select(:publicity, GroupChat.publicities_for_account(current_account).keys.map {|publicity| [publicity.titleize, publicity]}, {}, {:class => "select select-bordered"}) %>
+                    </label>
+                    <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                            <span class="label-text">Level</span>
+                        </div>
+                        <%= g.select(:level, GroupChat.levels.keys.map {|level| [level.titleize, level]}, {}, {:class => "select select-bordered"}) %>
+                    </label>
+                    <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                            <span class="label-text">Style</span>
+                        </div>
+                        <%= g.select(:style, GroupChat.styles.keys.map {|style| [style.titleize, style]}, {}, {:class => "select select-bordered"}) %>
+                    </label>
+                    <div class="form-control w-52">
+                        <label class="cursor-pointer label">
+                            <span class="label-text">Autosilence</span> 
+                            <%= g.check_box :autosilence, class: "toggle toggle-primary" %>
+                        </label>
+                    </div>
+                    <div class="form-control w-52">
+                        <label class="cursor-pointer label">
+                            <span class="label-text">Allow Images</span> 
+                            <%= g.check_box :image_upload, class: "toggle toggle-primary" %>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full space-y-4 pb-4 md:pl-4">
+                    <label class="form-control">
+                        <div class="label">
+                            <span class="label-text">Topic</span>
+                        </div>
+                        <%= g.text_area :topic, class: "textarea textarea-bordered h-24 w-full" %>
+                    </label>
+                    <label class="form-control">
+                        <div class="label">
+                            <span class="label-text">Description</span>
+                        </div>
+                        <%= g.text_area :description, class: "textarea textarea-bordered h-24" %>
+                    </label>
+                    <label class="form-control">
+                        <div class="label">
+                            <span class="label-text">Rules</span>
+                        </div>
+                        <%= g.text_area :rules, class: "textarea textarea-bordered h-24" %>
+                    </label>
+                </div>
+              <% end %>
+            </div>
+            <div>
+                <%= f.submit "Update Chat", class: "btn btn-block btn-accent" %>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="flex flex-col items-center min-h-screen pt-8">
+    <div class="w-full p-6 bg-base-200 border-t-4 border-accent rounded-md shadow-md border-top lg:max-w-full">
+        <h1 class="text-xl font-black pb-4">Editing <%= chat.url %> users</h1>
+        <%= form_for(chat, class: "space-x-4", html: { method: :put }) do |f|%>     
+            <div class="field pb-4 grid grid-cols-1 md:grid-cols-4 space-4">
+              <%= f.fields_for :chat_users, chat.chat_users do |g| %>
+                <div class="flex flex-col space-y-4 pb-4">
+                    <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                            <span class="label-text"><%= "#{g.object.name} (##{g.object.number})'s " %>Group</span>
+                        </div>
+                        <%= g.select(:group, ChatUser.groups.keys.map {|group| [group.titleize, group]}, {}, {:class => "select select-bordered"}) %>
+                    </label>
+                </div>
+              <% end %>
+            </div>
+            <div>
+                <%= f.submit "Update", class: "btn btn-block btn-accent" %>
+            </div>
+        <% end %>
+    </div>
+</div>

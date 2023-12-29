@@ -22,7 +22,7 @@ class ChatPolicy < ApplicationPolicy
 
   def update?
     generate_context(user)
-    record.group_chat? && record.group_chat.creator_id == user.id || (user.admin? && user.permissions.where(permission: "groups").any?)
+    record.group_chat? && record.group_chat.creator_id == user.id || (record.accounts.include?(user) && record.chat_users.find_by(user_id: user.id).group == "mod3" ) || (user.admin? && user.permissions.where(permission: "groups").any?)
   end
   
   def destroy?

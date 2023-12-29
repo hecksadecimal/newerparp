@@ -33,6 +33,10 @@ class Chat < ApplicationRecord
 
     kredis_hash :online_statuses, after_change: :update_statuses, default: {}
 
+    accepts_nested_attributes_for :group_chat
+    accepts_nested_attributes_for :chat_users
+
+    
     def add_account(account)
         chat_user = ChatUser.new
         chat_user.account = account

@@ -7,4 +7,27 @@ class GroupChat < ApplicationRecord
         admin_only: "admin_only", 
         private_chat: "private"
     }
+
+    enum level: {
+        sfw: "sfw",
+        nsfw: "nsfw",
+        nsfw_extreme: "nsfw-extreme",
+        nsfw_sexual: "nsfws",
+        nsfw_violent: "nsfwv"
+    }
+
+    enum style: {
+        script: "script",
+        paragraph: "paragraph",
+        either: "either"
+    }
+
+    def self.publicities_for_account(account)
+        if account.admin?
+            return publicities
+        end
+
+        return publicities.slice(:listed, :unlisted)
+        # TODO: Private Chat
+    end
 end

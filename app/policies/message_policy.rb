@@ -17,7 +17,21 @@ class MessagePolicy < ApplicationPolicy
 
     def create?
       generate_context(user)
-      (user.admin? && user.permissions.where(permission: "groups").any?) || ( UNLEASH.is_enabled?("beta", @unleash_context) && user.id == record.user_id && allowed_to?(:show?, record.chat) )
+      chat_user = ChatUser.find_by(user_id: user.id, chat_id: record.chat.id)
+      if (user.admin? && user.permissions.where(permission: "groups").any?)
+        return true
+      end
+
+      if !UNLEASH.is_enabled?("beta", @unleash_context)
+        return false
+      end
+
+      if user.id == record.user_id && allowed_to?(:show?, record.chat) && !chat_user.group == "silent"
+        puts "CONDITION PASSED!!!!"
+        return true
+      end
+      
+      return false
     end
   
     def show?

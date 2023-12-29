@@ -1,6 +1,7 @@
 <%= turbo_frame_tag @chat, class: "w-screen h-screen" do %>
   <% if !log %>
     <%= turbo_stream_from dom_id(@chat) %>
+    <%= turbo_stream_from "#{dom_id(@chat)}_#{dom_id(current_account)}" %>
     <div id="chat" class="flex md:flex-row-reverse h-screen overflow-hidden">
         <!-- Sidebar -->
         <div class="w-1/4 bg-base-100 border-r border-neutral hidden md:block">
@@ -92,7 +93,7 @@
             <!-- Chat Input -->
             <footer class="bg-base-100 border-t border-neutral md:p-4 max-w-screen w-auto">
                 <div class="">
-                    <%= render 'messages/rich_form', message: Message.new(chat: @chat, content: (!@chat_user.nil? && !@chat_user.acronym.empty?) ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : "") %>
+                    <%= render 'messages/rich_form', account: current_account, message: Message.new(chat: @chat, content: (!@chat_user.nil? && !@chat_user.acronym.empty?) ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : "") %>
                 </div>
             </footer>
         </div>

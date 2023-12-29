@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[ show log presence edit update destroy ]
+  before_action :set_chat, only: %i[ show log users presence edit update destroy ]
   before_action :authenticate_account!, only: %i[ visited owned searched show subscribed new edit create update destroy ]
   before_action :add_sentry_context, only: %i[ show log presence edit create update destroy ]
 
@@ -101,6 +101,10 @@ class ChatsController < ApplicationController
     authorize! @chat, to: :update?
   end
 
+  def users
+    authorize! @chat, to: :update?
+  end
+
   # POST /chats or /chats.json
   def create
     @chat = Chat.new(chat_params)
@@ -145,8 +149,8 @@ class ChatsController < ApplicationController
     authorize! @chat, to: :update?
 
     respond_to do |format|
-      if @chat.update(chat_params)
-        format.html { redirect_to chat_url(@chat), notice: "Chat was successfully updated." }
+      if @chat.update(edit_chat_params)
+        format.html { redirect_to edit_chat_path(@chat), notice: "Chat was successfully updated." }
         format.json { render :show, status: :ok, location: @chat }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -185,6 +189,22 @@ class ChatsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:url)
+    end
+
+    def edit_chat_params
+      p = params.require(:chat).permit(chat_users_attributes: [:id, :number, :name, :acronym, :color, :group], group_chat_attributes: [:id, :topic, :description, :rules, :autosilence, :image_upload, :style, :level, :publicity])
+      
+      if p.has_key?("chat_users_attributes")
+        p[:chat_users_attributes].each do |k, v|
+          v.each do |k2, v2|
+            if k2 == "id"
+              p[:chat_users_attributes][k][k2] = v2.split(" ").map(&:to_i)
+            end
+          end
+        end
+      end
+
+      return p
     end
 
     def pagy_calendar_period(messages)

@@ -8,6 +8,15 @@ class ChatUser < ApplicationRecord
     has_many :messages, query_constraints: [:chat_id, :user_id]
 
     kredis_boolean :typing, after_change: :update_typing, default: false
+
+    enum group: {
+        mod: "mod",
+        mod1: "mod1",
+        mod2: "mod2",
+        mod3: "mod3",
+        silent: "silent",
+        user: "user"
+    }
     
     after_create_commit -> {
         message = Message.new
@@ -22,6 +31,16 @@ class ChatUser < ApplicationRecord
         message.posted = Time.now
         
         message.save
+    }
+
+    after_update -> {
+        self.chat.update_statuses
+
+        if saved_change_to_group?
+            if (self.saved_changes[:group] && self.saved_changes[:group][0] == "silent" || self.saved_changes[:group][1] == "silent")
+                broadcast_replace_to "chat_#{self.chat_id}_account_#{self.user_id}", target: "input_chat_#{self.chat_id}", partial: "messages/rich_form", locals: {account: self.account, message: Message.new(chat_id: self.chat_id, content: !self.acronym.empty? ? "<p><span><strong>#{self.acronym}:</strong>&nbsp;</span></p>" : "")}
+            end
+        end
     }
 
     def update_typing
