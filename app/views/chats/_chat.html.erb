@@ -85,7 +85,7 @@
             <!-- Chat Input -->
             <footer class="bg-base-100 border-t border-neutral md:p-4 max-w-screen w-auto">
                 <div class="">
-                    <%= render 'messages/rich_form', account: current_account, message: Message.new(chat_id: @chat.id, content: !@chat_user.acronym.empty? ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : !@chat_user.quirk_prefix.empty? ? "<p><span><strong>#{@chat_user.quirk_prefix}</strong>&nbsp;</span></p>" : "") %>
+                    <%= render 'messages/rich_form', account: current_account, message: Message.new(chat_id: @chat.id, content: !@chat_user.acronym.empty? ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : !@chat_user.quirk_prefix.empty? ? "<p><span><strong>#{@chat_user.quirk_prefix.strip}</strong>&nbsp;</span></p>" : "") %>
                 </div>
             </footer>
         </div>
