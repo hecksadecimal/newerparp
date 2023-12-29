@@ -22,6 +22,11 @@ class GroupChat < ApplicationRecord
         either: "either"
     }
 
+    after_update_commit -> { 
+        broadcast_replace_to "chat_#{self.id}", target: "chat_#{self.id}_details", partial: "chats/details", locals: {chat: self.chat}
+
+    }
+
     def self.publicities_for_account(account)
         if account.admin?
             return publicities

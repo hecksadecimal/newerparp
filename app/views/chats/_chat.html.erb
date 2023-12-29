@@ -58,18 +58,7 @@
                   <% if current_account.admin? || !@chat_user.nil? && @chat.group_chat && (@chat_user.account.id == @chat.group_chat.creator_id || @chat_user.mod? || @chat_user.mod1? || @chat_user.mod2? || @chat_user.mod3?) %>
                     <%= link_to "Edit", edit_chat_path(@chat), target: "_blank", class: "btn btn-sm" %>
                   <% end %>
-                  <% if @chat.group_chat && @chat.group_chat.topic %>
-                    <div class="divider">Topic</div>
-                    <div class="prose">
-                      <%== @chat.group_chat.topic.bbcode_to_html %>
-                    </div>
-                  <% end %>
-                  <% if @chat.group_chat && @chat.group_chat.description %>
-                    <div class="divider">Description</div>
-                    <div class="prose">
-                      <%== @chat.group_chat.description.bbcode_to_html %>
-                    </div>
-                  <% end %>
+                  <%= render partial: "chats/details", :locals => {:chat => @chat} %>
                 </div>
                 <form method="dialog" class="modal-backdrop">
                   <button>close</button>

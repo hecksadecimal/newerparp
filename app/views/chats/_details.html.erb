@@ -1,0 +1,21 @@
+
+<%= turbo_frame_tag "#{dom_id(chat)}_details" do %>
+    <% if chat.group_chat && !chat.group_chat.topic.empty? %>
+        <div class="divider">Topic</div>
+        <div class="prose">
+            <%== chat.group_chat.topic.bbcode_to_html %>
+        </div>
+    <% end %>
+    <% if chat.group_chat && !chat.group_chat.description.empty? %>
+        <div class="divider">Description</div>
+        <div class="prose">
+            <%== chat.group_chat.description.bbcode_to_html %>
+        </div>
+    <% end %>
+    <% if chat.group_chat && !chat.group_chat.rules.empty? %>
+        <div class="divider">Rules</div>
+        <div class="prose">
+            <%== chat.group_chat.rules.bbcode_to_html %>
+        </div>
+    <% end %>
+<% end %>
