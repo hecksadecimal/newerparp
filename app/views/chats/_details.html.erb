@@ -1,5 +1,94 @@
 
 <%= turbo_frame_tag "#{dom_id(chat)}_details" do %>
+
+    <div class="flex flex-wrap gap-x-2">
+        <div class="badge badge-outline">
+            <%= chat.type %>
+        </div>
+        <% if chat.group_chat? %>
+            <% case chat.group_chat.level 
+                when "sfw" %>
+                    <div class="badge badge-success badge-outline">
+                        <%= chat.group_chat.level %>
+                    </div>
+                <% when "nsfw" %>
+                    <div class="badge badge-accent badge-outline">
+                        <%= chat.group_chat.level %>
+                    </div>
+                <% when "nsfws" %>
+                    <div class="badge badge-secondary badge-outline">
+                        <%= chat.group_chat.level %>
+                    </div>
+                <% when "nsfwv" %>
+                    <div class="badge badge-warning badge-outline">
+                        <%= chat.group_chat.level %>
+                    </div>
+                <% when "nsfw-extreme" %>
+                    <div class="badge badge-error badge-outline">
+                        <%= chat.group_chat.level %>
+                    </div>
+                <% else %>
+                    <div class="badge badge-outline">
+                        <%= chat.group_chat.level %>
+                    </div>
+            <% end %>
+            <% case chat.group_chat.publicity 
+                when "listed" %>
+                    <div class="badge badge-success badge-outline">
+                        <%= chat.group_chat.publicity %>
+                    </div>
+                <% when "unlisted" %>
+                    <div class="badge badge-accent badge-outline">
+                        <%= chat.group_chat.publicity %>
+                    </div>
+                <% when "pinned" %>
+                    <div class="badge badge-secondary badge-outline">
+                        <%= chat.group_chat.publicity %>
+                    </div>
+                <% when "admin-only" %>
+                    <div class="badge badge-warning badge-outline">
+                        <%= chat.group_chat.publicity %>
+                    </div>
+                <% when "private" %>
+                    <div class="badge badge-error badge-outline">
+                        <%= chat.group_chat.publicity %>
+                    </div>
+                <% else %>
+                    <div class="badge badge-outline">
+                        <%= chat.group_chat.publicity %>
+                    </div>
+            <% end %>
+            <% case chat.group_chat.style 
+                when "script" %>
+                    <div class="badge badge-success badge-outline">
+                        <%= chat.group_chat.style %>
+                    </div>
+                <% when "paragraph" %>
+                    <div class="badge badge-accent badge-outline">
+                        <%= chat.group_chat.style %>
+                    </div>
+                <% when "either" %>
+                    <div class="badge badge-secondary badge-outline">
+                        <%= chat.group_chat.style %>
+                    </div>
+                <% else %>
+                    <div class="badge badge-outline">
+                        <%= chat.group_chat.style %>
+                    </div>
+            <% end %>
+            <% if chat.group_chat.autosilence %>
+                <div class="badge badge-error badge-outline">
+                    autosilence
+                </div>
+            <% end %>
+            <% if chat.group_chat.image_upload %>
+                <div class="badge badge-success badge-outline">
+                    images_permitted
+                </div>
+            <% end %>
+        <% end %>
+    <div>
+
     <% if chat.group_chat && !chat.group_chat.topic.empty? %>
         <div class="divider">Topic</div>
         <div class="prose">
