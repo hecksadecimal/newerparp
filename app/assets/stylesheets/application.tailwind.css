@@ -33,7 +33,7 @@ html {
 }
 
 #messages img {
-	@apply blur-2xl;
+	@apply blur-lg;
 	@apply hover:blur-none;
 	@apply transition;
 	@apply ease-in-out;
