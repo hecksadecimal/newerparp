@@ -31,7 +31,7 @@ class Message < ApplicationRecord
     end
 
     def attachments_valid
-        if content
+        if content && content.body && content.body.attachments
             content.body.attachments.each do |attach|
                 if chat.group_chat? && !chat.group_chat.image_upload
                     errors.add(:files, 'are disallowed in this room') unless chat.group_chat.image_upload
