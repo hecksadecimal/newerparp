@@ -338,6 +338,9 @@ rhino-editor { @apply prose max-w-none }
 .rhino-editor::part(editor) {
   @apply max-h-full;
 }
+.rhino-editor::part(toolbar) {
+  @apply flex-wrap;
+}
 
 .rhino-editor::part(toolbar__button) {
   height: auto !important;
