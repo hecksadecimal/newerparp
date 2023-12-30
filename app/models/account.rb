@@ -9,6 +9,7 @@ class Account < ApplicationRecord
   
   validates_uniqueness_of :email
   validates_uniqueness_of :username
+  validates :color, length: { maximum: 6 }
 
   belongs_to :admin_tier, optional: true
   has_many :permissions, through: :admin_tier
