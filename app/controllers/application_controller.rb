@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     private
         def configure_permitted_parameters
             devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email])
-            devise_parameter_sanitizer.permit(:account_update, keys: [:email])
+            devise_parameter_sanitizer.permit(:account_update, keys: [:email, :name, :acronym, :quirk_prefix, :color])
 
         end
 

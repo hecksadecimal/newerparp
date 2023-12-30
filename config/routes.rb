@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :accounts
+  devise_for :accounts, controllers: { registrations: 'registrations' }
 
   post 'uploader/image'
 
