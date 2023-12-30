@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_28_171439) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_30_024129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -461,7 +461,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_171439) do
   add_foreign_key "characters", "users", name: "characters_user_id_fkey", on_delete: :cascade
   add_foreign_key "chat_users", "chats", name: "chat_users_chat_id_fkey", on_delete: :cascade
   add_foreign_key "chat_users", "search_characters", name: "chat_users_search_character_id_fkey"
-  add_foreign_key "chat_users", "users", name: "chat_users_user_id_fkey"
   add_foreign_key "email_bans", "users", column: "creator_id", name: "email_bans_creator_id_fkey"
   add_foreign_key "group_chats", "chats", column: "id", name: "group_chats_id_fkey", on_delete: :cascade
   add_foreign_key "group_chats", "chats", column: "parent_id", name: "group_chats_parent_id_fkey"
