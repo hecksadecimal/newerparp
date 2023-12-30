@@ -12,7 +12,8 @@ class ChatsController < ApplicationController
 
   # GET /chat/something or /chat/something.json
   def show
-    if UNLEASH.is_disabled? "beta", @unleash_context
+
+    if current_account.beta_code.nil? && !current_account.admin?
       redirect_to log_chat_path(@chat)
       return
     end
