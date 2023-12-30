@@ -42,10 +42,6 @@ html {
 	@apply delay-100;
 }
 
-rhino-editor { 
-  @apply prose; 
-}
-
 /* src/exports/styles/trix.css */
 .trix-content .rhino-upload-error {
   @apply bg-error;
@@ -333,7 +329,7 @@ rhino-editor {
 }
 
 .rhino-editor::part(editor) {
-  @apply max-h-48 overflow-y-auto;
+  @apply max-h-48 overflow-y-auto text-base-content;
 }
 .rhino-editor::part(toolbar) {
   @apply flex-wrap pb-2;
