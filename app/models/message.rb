@@ -42,7 +42,7 @@ class Message < ApplicationRecord
                 if chat.group_chat? && !chat.group_chat.image_upload
                     errors.add(:files, 'are disallowed in this room') unless chat.group_chat.image_upload
                 end
-                errors.add(:file, "#{attach.filename} is larger than 10 mb") if attach.byte_size > 1242880
+                # errors.add(:file, "#{attach.filename} is larger than 10 mb") if attach.byte_size > 1242880
                 errors.add(:file, "#{attach.filename} is not an image") unless attach.image? 
                 errors.add(:file, "#{attach.filename} is not a supported image type (png, jpeg)") unless attach.content_type == 'image/jpeg' || attach.content_type == 'image/png'
             end
