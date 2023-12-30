@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       get 'users'
       get 'log'
       patch 'presence'
+      patch 'me'
     end
   end
   resources :chats, except: :show do

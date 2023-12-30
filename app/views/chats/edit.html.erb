@@ -1,4 +1,9 @@
-<%= render "edit_form", chat: @chat %>
-<%= render "edit_users_form", chat: @chat %>
+<% if @chat_user %>
+    <%= render "edit_chat_user_form", chat: @chat, chat_user: @chat_user %>
+<% end %>
+<% if allowed_to?(:update?, @chat) %>
+    <%= render "edit_form", chat: @chat %>
+    <%= render "edit_users_form", chat: @chat %>
+<% end %>
 
 

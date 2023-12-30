@@ -55,9 +55,7 @@
                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                   </form>
                   <div id="modal_top"></div>
-                  <% if current_account.admin? || !@chat_user.nil? && @chat.group_chat && (@chat_user.account.id == @chat.group_chat.creator_id || @chat_user.mod? || @chat_user.mod1? || @chat_user.mod2? || @chat_user.mod3?) %>
-                    <%= link_to "Edit", edit_chat_path(@chat), target: "_blank", class: "btn btn-sm" %>
-                  <% end %>
+                  <%= link_to "Settings", edit_chat_path(@chat), target: "_blank", class: "btn btn-sm" %>
                   <%= render partial: "chats/details", :locals => {:chat => @chat} %>
                 </div>
                 <form method="dialog" class="modal-backdrop">

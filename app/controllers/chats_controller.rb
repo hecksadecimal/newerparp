@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[ show log users presence edit update destroy ]
+  before_action :set_chat, only: %i[ show log me users presence edit update destroy ]
   before_action :authenticate_account!, only: %i[ visited owned searched show log subscribed new edit create update destroy ]
   before_action :add_sentry_context, only: %i[ show log presence edit create update destroy ]
 
@@ -48,6 +48,21 @@ class ChatsController < ApplicationController
       chat_user.typing.value = false
     else
       @chat.online_statuses.update("#{chat_user.number}" => "online")
+    end
+  end
+    # PATCH/PUT /chat/something/me
+  def me
+    authorize! @chat, to: :show?
+    authorize! @chat_user, to: :update?
+
+    respond_to do |format|
+      if @chat_user.update(chat_user_params)
+        format.html { redirect_to edit_chat_path(@chat), notice: "Your chat settings were successfully updated." }
+        format.json { render :show, status: :ok, location: @chat }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @chat.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -99,7 +114,6 @@ class ChatsController < ApplicationController
 
   # GET /chat/something/edit
   def edit
-    authorize! @chat, to: :update?
   end
 
   def users
@@ -194,6 +208,10 @@ class ChatsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:url)
+    end
+
+    def chat_user_params
+      params.require(:chat_user).permit(:name, :acronym, :quirk_prefix, :color)
     end
 
     def edit_chat_params

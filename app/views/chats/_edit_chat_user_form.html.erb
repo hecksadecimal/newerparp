@@ -1,0 +1,36 @@
+<div class="flex flex-col items-center pt-8">
+    <div class="w-full p-6 bg-base-200 border-t-4 border-accent rounded-md shadow-md border-top lg:max-w-full">
+        <h1 class="text-xl font-black pb-4">User Settings</h1>
+        <%= form_for(chat_user, class: "space-x-4", url: me_chat_path(chat), html: { method: :patch }) do |f|%>     
+            <div class="field pb-4 flex gap-2 flex-col flex-wrap md:flex-row">
+                <label class="form-control">
+                    <div class="label">
+                        <span class="label-text">Name</span>
+                    </div>
+                    <%= f.text_field :name, class: "input input-bordered bg-base-300 focus:bg-base-300" %>
+                </label>
+                <label class="form-control">
+                    <div class="label">
+                        <span class="label-text">Acronym</span>
+                    </div>
+                    <%= f.text_field :acronym, class: "input input-bordered bg-base-300 focus:bg-base-300" %>
+                </label>
+                <label class="form-control">
+                    <div class="label">
+                        <span class="label-text">Prefix</span>
+                    </div>
+                    <%= f.text_field :quirk_prefix, class: "input input-bordered bg-base-300 focus:bg-base-300" %>
+                </label>
+                <label class="form-control">
+                    <div class="label">
+                        <span class="label-text">Color</span>
+                    </div>
+                    <%= f.text_field :color, class: "input input-bordered bg-base-300 focus:bg-base-300" %>
+                </label>
+            </div>
+            <div>
+                <%= f.submit "Update Self", class: "btn btn-block btn-accent" %>
+            </div>
+        <% end %>
+    </div>
+</div>
