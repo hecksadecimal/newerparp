@@ -42,7 +42,9 @@ html {
 	@apply delay-100;
 }
 
-rhino-editor { @apply prose max-w-none }
+rhino-editor { 
+  @apply prose; 
+}
 
 /* src/exports/styles/trix.css */
 .trix-content .rhino-upload-error {
@@ -287,10 +289,6 @@ rhino-editor { @apply prose max-w-none }
   display: block;
 }
 
-.rhino-editor::part(toolbar) {
-  @apply pb-2;
-}
-
 .rhino-editor::part(toolbar__base) {
   @apply border-base-200;
   @apply rounded-box;
@@ -334,14 +332,14 @@ rhino-editor { @apply prose max-w-none }
   box-shadow: 0 0 0 1px var(--rhino-button-disabled-border-color);
 }
 
-/* Applies to all toolbar buttons */
 .rhino-editor::part(editor) {
-  @apply max-h-full;
+  @apply max-h-48 overflow-y-auto;
 }
 .rhino-editor::part(toolbar) {
-  @apply flex-wrap;
+  @apply flex-wrap pb-2;
 }
 
+/* Applies to all toolbar buttons */
 .rhino-editor::part(toolbar__button) {
   height: auto !important;
   width: 25px !important;
