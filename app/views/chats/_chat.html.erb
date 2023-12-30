@@ -85,7 +85,7 @@
             <!-- Chat Input -->
             <footer class="bg-base-100 border-t border-neutral md:p-4 max-w-screen w-auto">
                 <div class="">
-                    <%= render 'messages/rich_form', account: current_account, message: Message.new(chat_id: @chat.id, content: !@chat_user.acronym.empty? ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : !@chat_user.quirk_prefix.empty? ? "<p><span><strong>#{@chat_user.quirk_prefix.strip}</strong>&nbsp;</span></p>" : "") %>
+                    <%= render 'messages/rich_form', account: current_account, message: Message.new(chat_id: @chat.id, content: !@chat_user.acronym.empty? ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : "") %>
                 </div>
             </footer>
         </div>
@@ -96,7 +96,7 @@
         <div class="">
             <!-- Chat Messages -->
             <div id="messages" data-controller="autoscroll" class="flex flex-col  overflow-y-auto p-4">
-              <div class="flex  w-full cursor-pointer">
+              <div class="flex w-auto max-w-full cursor-pointer">
                 <div class="flex bg-base-100 rounded-lg my-1 p-3 gap-3">
                   <p data-controller="colouradjust" class="text-gray-500"><span class='grow whitespace-pre-wrap'>~~~ <%= link_to chat_path(@chat), chat_path(@chat), target: "_blank" %> ~~~</span></p>
                 </div>

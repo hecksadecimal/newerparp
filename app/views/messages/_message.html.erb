@@ -7,7 +7,7 @@
         <% else %>
           <div id="<%= dom_id message %>"
           <%== (message.color != "000" && message.color != "000000" && message.color != "black") ? "style='color: ##{message.color};'" : "class='text-gray-500'" %>>
-            <%== message.content.to_s.bbcode_to_html_unsafe  %>
+            <%== message.chat_user.quirk_prefix ? message.chat_user.quirk_prefix.bbcode_to_html : "" %><%== message.content.to_s.bbcode_to_html_unsafe  %>
           </div>
         <% end %>
       </p>
