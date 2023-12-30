@@ -130,7 +130,7 @@ class ChatsController < ApplicationController
         group_chat.autosilence = false
         group_chat.style = "either"
         group_chat.level = "sfw"
-        group_chat.publicity = "listed"
+        group_chat.publicity = "unlisted"
         group_chat.creator_id = current_account.id
         group_chat.id = @chat.id
         group_chat.save
