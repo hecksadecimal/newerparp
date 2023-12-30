@@ -22,7 +22,7 @@ class MessagePolicy < ApplicationPolicy
         return true
       end
 
-      if !UNLEASH.is_enabled?("beta", @unleash_context)
+      if !user.admin? || user.beta_code.nil?
         return false
       end
 
@@ -41,7 +41,11 @@ class MessagePolicy < ApplicationPolicy
   
     def update?
       generate_context(user)
-      UNLEASH.is_enabled? "beta", @unleash_context && record.account == user || (user.admin? && user.permissions.where(permission: "groups").any?)
+      if !user.admin? || !user.beta_code.nil?
+        return false
+      end
+      
+      record.account == user || (user.admin? && user.permissions.where(permission: "groups").any?)
     end
     
     def destroy?

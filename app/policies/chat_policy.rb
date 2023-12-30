@@ -12,7 +12,7 @@ class ChatPolicy < ApplicationPolicy
 
   def create?
     generate_context(user)
-    UNLEASH.is_enabled? "beta", @unleash_context
+    user.admin? || !user.beta_code.nil?
   end
 
   def show?
