@@ -1,6 +1,6 @@
 class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show log users presence edit update destroy ]
-  before_action :authenticate_account!, only: %i[ visited owned searched show subscribed new edit create update destroy ]
+  before_action :authenticate_account!, only: %i[ visited owned searched show log subscribed new edit create update destroy ]
   before_action :add_sentry_context, only: %i[ show log presence edit create update destroy ]
 
   rescue_from Pagy::OverflowError, with: :redirect_to_last_page

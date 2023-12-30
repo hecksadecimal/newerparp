@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_30_024129) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_30_024518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -472,7 +472,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_024129) do
   add_foreign_key "log_markers", "chats", name: "log_markers_chat_id_fkey", on_delete: :cascade
   add_foreign_key "log_markers", "messages", name: "log_markers_message_id_fkey", on_delete: :cascade
   add_foreign_key "messages", "chats", name: "messages_chat_id_fkey", on_delete: :cascade
-  add_foreign_key "messages", "users", name: "messages_user_id_fkey"
   add_foreign_key "search_character_choices", "search_characters", name: "search_character_choices_search_character_id_fkey"
   add_foreign_key "search_character_choices", "users", name: "search_character_choices_user_id_fkey"
   add_foreign_key "search_character_groups", "fandoms", name: "search_character_groups_fandom_id_fkey"
