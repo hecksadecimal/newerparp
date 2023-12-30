@@ -27,7 +27,7 @@ class Message < ApplicationRecord
     after_destroy_commit -> { broadcast_remove_to "chat_#{chat.id}" }
 
     def has_some_content
-        return if content? || (!text.nil? && !text.empty?)
+        return if content? || (!text.nil? && !text.empty?) || (content.body && content.body.attachments.size > 0)
         errors.add(:content, "must not be empty")
     end
 
