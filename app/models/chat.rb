@@ -78,7 +78,7 @@ class Chat < ApplicationRecord
         chat_user.show_user_numbers = account.show_user_numbers
         chat_user.typing_notifications = account.typing_notifications
         chat_user.show_timestamps = account.show_timestamps
-        chat_user.search_character_id = account.search_character_id
+        chat_user.search_character_id = account.search_character_id > 0 ? account.search_character_id : 1
 
         chat_user.save
     end
