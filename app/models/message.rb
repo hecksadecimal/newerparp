@@ -14,6 +14,7 @@ class Message < ApplicationRecord
 
     validate :attachments_valid
     validate :has_some_content
+    validate :content_length
 
     has_rich_text :content
 
@@ -28,6 +29,11 @@ class Message < ApplicationRecord
     def has_some_content
         return if content? || (!text.nil? && !text.empty?)
         errors.add(:content, "must not be empty")
+    end
+
+    def content_length
+        return if content? && content.to_s.size < 20000
+        errors.add(:content, "must be less than 20,000 characters")
     end
 
     def attachments_valid
