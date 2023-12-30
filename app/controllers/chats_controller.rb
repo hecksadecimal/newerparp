@@ -175,7 +175,11 @@ class ChatsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_chat
       @chat = Chat.find_by_url(params[:id])
-      @chat_user = ChatUser.where(chat_id: @chat.id, user_id: current_account.id).first
+      if current_account
+        @chat_user = ChatUser.where(chat_id: @chat.id, user_id: current_account.id).first
+      else
+        @chat_user = nil
+      end
       @typing_users = []
 
       @chat.online_statuses.keys.each do |chat_number|
