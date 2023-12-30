@@ -22,7 +22,7 @@ class MessagePolicy < ApplicationPolicy
         return true
       end
 
-      if !user.admin? || user.beta_code.nil?
+      if user.beta_code.nil?
         return false
       end
 
@@ -41,11 +41,15 @@ class MessagePolicy < ApplicationPolicy
   
     def update?
       generate_context(user)
-      if !user.admin? || !user.beta_code.nil?
+      if user.admin?
+        return true
+      end
+
+      if user.beta_code.nil?
         return false
       end
-      
-      record.account == user || (user.admin? && user.permissions.where(permission: "groups").any?)
+
+      return (record.account == user || (user.admin? && user.permissions.where(permission: "groups").any?))
     end
     
     def destroy?
