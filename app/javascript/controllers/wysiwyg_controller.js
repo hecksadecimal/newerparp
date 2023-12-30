@@ -53,9 +53,10 @@ export default class extends Controller {
       mobile = mobileAndTabletCheck()
 
       rhinoEditor.addEventListener("keydown", (e) => {
-        if (e.key == "Enter" && !e.ctrlKey && !mobile) {
+        if (e.key == "Enter" && e.shiftKey) {
           let submitSlot = rhinoEditor.querySelectorAll('[slot="toolbar-end"]')
           if (submitSlot) {
+            console.log(e)
             e.preventDefault()
             console.log(submitSlot[0])
 
