@@ -32,7 +32,7 @@ class Message < ApplicationRecord
     end
 
     def content_length
-        return if content? && content.to_s.size < 20000
+        return if (content? || text?) && content.to_s.size < 20000
         errors.add(:content, "must be less than 20,000 characters")
     end
 
