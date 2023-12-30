@@ -41,7 +41,7 @@ export default class extends Controller {
         blockquote: false,
         code: false,
         bulletList: false,
-        listItem: false,
+        orderedList: false,
         increaseIndentation: false,
         decreaseIndentation: false
       }
