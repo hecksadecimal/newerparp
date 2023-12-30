@@ -40,6 +40,8 @@ export default class extends Controller {
         codeBlock: false,
         blockquote: false,
         code: false,
+        bulletList: false,
+        listItem: false,
         increaseIndentation: false,
         decreaseIndentation: false
       }
