@@ -45,7 +45,7 @@
         </div>
         
         <!-- Main Chat Area -->
-        <div class="flex flex-col flex-1 md:border-r border-neutral">
+        <div class="flex flex-col md:w-3/4 flex-1 md:border-r border-neutral">
             <!-- Chat Header -->
             <header class="bg-base-100 flex p-4 text-base-content">
               <button class="btn btn-secondary" onclick="chat_modal.showModal();modal_top.scrollIntoView(false);"><%= @chat.url %></button>
@@ -85,7 +85,7 @@
             <!-- Chat Input -->
             <footer class="bg-base-100 border-t border-neutral md:p-4 max-w-screen w-auto">
                 <div class="">
-                    <%= render 'messages/rich_form', account: current_account, message: Message.new(chat_id: @chat.id, content: !@chat_user.acronym.empty? ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : "") %>
+                    <%= render 'messages/rich_form', account: current_account, message: Message.new(chat_id: @chat.id, content: !@chat_user.nil? && !@chat_user.acronym.empty? ? "<p><span><strong>#{@chat_user.acronym}:</strong>&nbsp;</span></p>" : "") %>
                 </div>
             </footer>
         </div>
