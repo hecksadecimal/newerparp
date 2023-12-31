@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_30_174833) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_31_042406) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,9 +41,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_174833) do
     t.integer "roulette_search_character_id", default: 0, null: false
     t.integer "roulette_character_id"
     t.integer "search_character_id", default: 0, null: false
-    t.string "name", limit: 50, default: "Anonymous", null: false
-    t.string "acronym", limit: 15, default: "??", null: false
-    t.string "color", limit: 6, default: "000000", null: false
+    t.string "name", limit: 50, default: "Anonymous"
+    t.string "acronym", limit: 15, default: "??"
+    t.string "color", limit: 6, default: "000000"
     t.string "quirk_prefix", limit: 2000, default: "", null: false
     t.string "quirk_suffix", limit: 2000, default: "", null: false
     t.enum "case", default: "normal", null: false, enum_type: ""case""
