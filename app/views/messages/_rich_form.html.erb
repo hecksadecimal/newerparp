@@ -10,6 +10,7 @@
                     data-blob-url-template="<%= rails_service_blob_url(":signed_id", ":filename") %>"
                     data-direct-upload-url="<%= rails_direct_uploads_url %>"
                 >
+                    <input id="modeswitch" slot="toolbar-start" data-role="toolbar-item" type="checkbox" class="toggle toggle-xs self-center" />
                     <% if message.errors.size > 0 %>
                         <%= form.submit "==>", 
                             tabindex: -1, 
