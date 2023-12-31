@@ -22,6 +22,9 @@ function placeCaretAtEnd(el) {
 // Connects to data-controller="wysiwyg"
 export default class extends Controller {
   connect() {
+    var currentPath = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
+    window.paraMode = +window.localStorage.getItem("paragraph_"+currentPath)
+
     document.addEventListener("rhino-before-initialize", (e) => {
       const rhinoEditor = e.target
       rhinoEditor.autofocus = true;
@@ -47,12 +50,11 @@ export default class extends Controller {
 
       let toggleSlot = rhinoEditor.querySelectorAll('[slot="toolbar-start"]')
       var currentPath = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
-      window.paraMode = +window.localStorage.getItem("paragraph_"+currentPath)
 
       if (toggleSlot) {
         toggleSlot[0].checked = paraMode
         toggleSlot[0].addEventListener("change", (e) => {
-          window.paraMode = !window.paraMode
+          window.paraMode = e.target.checked
           window.localStorage.setItem("paragraph_"+currentPath, +window.paraMode)
         })
       }
@@ -68,11 +70,13 @@ export default class extends Controller {
               }
             }
           } else {
-            console.log(paraMode)
-            let submitSlot = rhinoEditor.querySelectorAll('[slot="toolbar-end"]')
-            if (submitSlot) {
-              e.preventDefault()
-              submitSlot[0].click()
+            if (!e.shiftKey) {
+              console.log(paraMode)
+              let submitSlot = rhinoEditor.querySelectorAll('[slot="toolbar-end"]')
+              if (submitSlot) {
+                e.preventDefault()
+                submitSlot[0].click()
+              }
             }
           }
         }
