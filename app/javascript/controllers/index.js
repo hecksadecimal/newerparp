@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AnchorBlankerController from "./anchor_blanker_controller"
+application.register("anchor-blanker", AnchorBlankerController)
+
 import AutofocusController from "./autofocus_controller"
 application.register("autofocus", AutofocusController)
 
