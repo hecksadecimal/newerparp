@@ -13,7 +13,7 @@ export default class extends Controller {
         window.setTimeout(() => {
           var scrollPercentage = 100 * this.element.scrollTop / (this.element.scrollHeight-this.element.clientHeight); 
           if (scrollPercentage > 50) {
-            this.element.lastElementChild.scrollIntoView(false);
+            this.element.scrollTop = this.element.scrollHeight;
           }
         }, 500)
       },
