@@ -87,6 +87,11 @@ class Chat < ApplicationRecord
         broadcast_replace_to "chat_#{self.id}", target: "chat_#{self.id}_userlist", partial: "chats/userlist", chat: self 
     end
 
+    def self.recalculate_statuses
+        
+        update_statuses
+    end
+
     def created_at
         created
     end
