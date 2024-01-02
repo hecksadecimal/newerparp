@@ -22,6 +22,9 @@
             <% if current_account && current_account.chats.include?(chat) %>
                 <p>Visited</p>
             <% end %>
+            <div class="logs-link justify-centre">
+                <p>Logs</p><%= link_to chat.url+"/log", chat %>
+            </div>
             <div class="badge badge-outline">
                 <%= chat.type %>
             </div>
