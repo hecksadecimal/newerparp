@@ -1,6 +1,7 @@
 <div class="card bg-base-200 shadow-xl h-full place-content-between">
     <div class="card-body">
         <div class="card-title divider text-lg sm:text-sm underline"><%= link_to chat.url, chat %></div>
+        <div class="logs-link justify-centre text-sm"><%= "Logs", log_chat_path(chat), target: "_blank" %></div>
         <% if chat.group_chat? %>
             <div class="collapse collapse-arrow bg-base-300 max-w-full">
                 <input type="checkbox" name="chat-accordion" /> 
@@ -22,9 +23,6 @@
             <% if current_account && current_account.chats.include?(chat) %>
                 <p>Visited</p>
             <% end %>
-            <div class="logs-link justify-centre">
-                <p>Logs</p><%= link_to chat.url+"/log", chat %>
-            </div>
             <div class="badge badge-outline">
                 <%= chat.type %>
             </div>
