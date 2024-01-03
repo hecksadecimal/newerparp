@@ -108,7 +108,6 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    chronic (0.10.2)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -324,8 +323,6 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    whenever (1.0.0)
-      chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.12)
@@ -366,7 +363,6 @@ DEPENDENCIES
   tzinfo-data
   unleash (~> 5.0.0)
   web-console
-  whenever
 
 RUBY VERSION
    ruby 3.2.2p53
